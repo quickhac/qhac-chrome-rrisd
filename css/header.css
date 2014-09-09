@@ -94,8 +94,8 @@
 
 /* submenu */
 
-.sg-banner-menu-element.sg-menu-element-identify span {
-	height: 70px; /* fix banner submenu selection area */
+.sg-banner-menu-element.sg-menu-element-identity span {
+	height: 32px; /* fix banner submenu selection area */
 }
 
 .sg-banner-menu-element > .sg-banner-submenu {
@@ -107,17 +107,17 @@
 }
 
 .sg-banner-submenu > li > a {
-	color: #888;
+	color: #888 !important;
 
 	font-size: 14px;
 }
 
-.sg-banner-submenu > li:hover {
-	background: inherit;
+.sg-banner-submenu > li:hover, .sg-banner-submenu > li:hover > a {
+	background: #e0e0e0 !important;
 }
 
 .sg-banner-submenu > li:hover > a {
-	color: #444;
+	color: #444 !important;
 }
 
 /* navigation */
@@ -133,6 +133,9 @@
 }
 
 .sg-hac-menu-options {
+	display: flex;
+	justify-content: center;
+
 	color: rgba(255,255,255,0.75);
 
 	font-family: 'Open Sans';
@@ -190,7 +193,7 @@
 	font-weight: 400;
 }
 
-.sg-hac-submenu .sg-hac-submenu-option-selected {
+.sg-hac-submenu .sg-hac-submenu-option-selected, .sg-hac-submenu .sg-hac-submenu-option:hover {
 	background: #336e7b;
 	color: rgba(255,255,255,0.75);
 }
@@ -271,7 +274,7 @@ label.sg-student-picker-row:hover {
 
 .sg-main-footer {
 	background: #f0f0f0 !important;
-	box-shadow: 0px 0px 8px rgba(0,0,0,0.25);
+	box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
 }
 
 .sg-main-footer > .sg-hac-copyright {

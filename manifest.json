@@ -18,6 +18,12 @@
 			"js": ["js/vendor/jquery.js", "js/header.js"]
 		},
 		{
+			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/*"],
+			// "exclude_matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/Student/Assignments.aspx*"],
+			"css": ["css/open-sans.css", "css/content.css"],
+			"all_frames": true
+		},
+		{
 			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/Student/Assignments.aspx*"],
 			"css": ["css/assignments.css"],
 			"js": ["js/assignments.js"],

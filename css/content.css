@@ -1,0 +1,20 @@
+/* remove gradients and other ugly things from tables */
+
+.sg-header, .sg-header-no-rounding {
+	background: #f0f0f0 !important;
+}
+
+.sg-asp-table-header-row {
+	background: #f0f0f0 !important;
+	border-bottom: 1px solid #ccc;
+}
+
+.sg-content-grid {
+	border: none !important;
+}
+
+.AssignmentClass {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 12px;
+}
