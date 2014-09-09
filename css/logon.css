@@ -1,0 +1,137 @@
+html, body {
+	background: #2c3e50 !important;
+}
+
+/* remove header background and move heading text to center */
+
+.sg-banner.sg-banner-default-logo, .sg-banner.sg-banner-default-logo * {
+	background: none;
+}
+
+.sg-banner-info-container > .sg-banner-text.sg-banner-default-text-color {
+	position: fixed;
+	display: block;
+	left: 50%;
+	margin-top: 15px;
+	margin-left: -200px;
+	width: 400px;
+
+	color: #fff;
+
+	text-align: center;
+
+	font-family: 'Open Sans';
+	font-weight: 300;
+	font-size: 30px;
+}
+
+#ext-cred {
+	margin-top: 0;
+
+	font-weight: 400;
+	font-size: 13px;
+}
+
+/* give login form content a nice background and text style */
+
+.sg-container#SignInSectionContainer {
+	margin-top: 52px;
+
+	background: none !important;
+	box-shadow: none !important;
+}
+
+.sg-container > .sg-header {
+	border: none;
+	background: rgba(0,0,0,0.25);
+	border-top-right-radius: 10px;
+}
+
+.sg-container > .sg-header > .sg-header-heading {
+	color: rgba(255,255,255,0.5);
+
+	font-family: 'Open Sans';
+	font-weight: 400;
+}
+
+.sg-container > .sg-header > .sg-header-heading > img {
+	display: none;
+}
+
+.sg-container > .sg-header > .sg-header-heading > i.icon-lock {
+	margin: 0 8px;
+}
+
+.sg-container > .sg-content.sg-logon {
+	background: rgba(0,0,0,0.25);
+	border: none;
+}
+
+#customMessage {
+	display: none !important;
+}
+
+.sg-container > .sg-content.sg-logon > div {
+	margin: 10px 5px;
+
+	color: #ddd;
+
+	font-family: 'Open Sans';
+	font-size: 16px;
+}
+
+.sg-container > .sg-content.sg-logon > div > a {
+	display: block;
+
+	color: rgba(255,255,255,0.5);
+
+	font-size: 14px;
+}
+
+/* make login form real nice */
+
+.sg-content.sg-logon .sg-logon-left {
+	display: none;
+}
+
+.sg-content.sg-logon .sg-logon-right, .sg-content.sg-logon .sg-logon-right:-webkit-autofill {
+	box-sizing: border-box;
+	width: 100%;
+	border: none;
+	padding: 4px;
+	border-radius: 2px;
+
+	/* hacks for background and text color since they are forced by webkit */
+	box-shadow: 0 100px 0 rgb(66,93,120) inset;
+	-webkit-text-fill-color: #fff;
+
+	font-family: 'Open Sans';
+	font-size: 16px;
+}
+
+.sg-content.sg-logon .sg-logon-right::-webkit-input-placeholder {
+	color: rgba(255,255,255,0.5);
+	-webkit-text-fill-color: rgba(255,255,255,0.5);
+}
+
+.sg-content.sg-logon .sg-logon-validation {
+	display: none;
+}
+
+.sg-content.sg-logon .sg-button.sg-logon-button {
+	position: initial;
+	display: block;
+	float: none;
+	box-sizing: border-box;
+	width: 321px;
+	margin: 2px 4px;
+	padding: 2px 0;
+	border: none;
+	border-radius: 2px;
+
+	background: rgb(66,93,120);
+	color: rgba(255,255,255,0.75);
+
+	font-family: 'Open Sans';
+	font-size: 16px;
+}

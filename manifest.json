@@ -1,0 +1,27 @@
+{
+	"manifest_version": 2,
+	"name": "QuickHAC",
+	"description": "Quickly and efficiently check your grades.",
+	"version": "3.0.0",
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+
+	"content_scripts": [
+		{
+			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Account/LogOn*"],
+			"css": ["css/open-sans.css", "css/logon.css"],
+			"js": ["js/vendor/jquery.js", "js/logon.js"]
+		},
+		{
+			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/*"],
+			"exclude_matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/*"],
+			"css": ["css/open-sans.css", "css/header.css"],
+			"js": ["js/vendor/jquery.js", "js/header.js"]
+		},
+		{
+			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/Student/Assignments.aspx*"],
+			"css": ["css/assignments.css"],
+			"js": ["js/assignments.js"],
+			"all_frames": true
+		}
+	]
+}
