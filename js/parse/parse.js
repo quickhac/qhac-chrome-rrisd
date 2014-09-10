@@ -47,7 +47,7 @@ var Parser = (function(Parser, undefined) {
 	 * doc {HTMLElement or HTMLDocument}
 	 */
 	Parser.parse = function (doc) {
-		return $('.AssignmentClass', doc).map(function(idx, elem) {
+		return [].map.call($('.AssignmentClass', doc), function(elem, idx) {
 			var $course = $(elem),
 				course_obj = {};
 
