@@ -112,7 +112,8 @@ body {
 	border-radius: 2px;
 
 	/* hacks for background and text color since they are forced by webkit */
-	box-shadow: 0 100px 0 rgb(22,105,124) inset;
+	box-shadow: 0 100px 0 rgb(22,118,137) inset;
+	outline: 1px solid rgba(255,255,255,0.2);
 	-webkit-text-fill-color: #fff;
 
 	font-family: 'Open Sans';
@@ -139,7 +140,8 @@ body {
 	border: none;
 	border-radius: 2px;
 
-	background: rgb(22,105,124);
+	outline: 1px solid rgba(255,255,255,0.2);
+	background: rgb(22,118,137);
 	color: rgba(255,255,255,0.75);
 
 	font-family: 'Open Sans';

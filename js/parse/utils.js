@@ -3,6 +3,35 @@
 
 var ParseUtils = (function(ParseUtils, undefined) {
 
+	ParseUtils.parseMaybeFloat = function (str) {
+		if (str === undefined || str === null || str === '' || str === ' ')
+			return null;
+		return parseFloat(str);
+	}
+
+	ParseUtils.parseMaybePercent = function (str) {
+		if (str === undefined || str === null || str === '' || str === ' ')
+			return null;
+
+		var matches = str.match(/([\d\.]+)/);
+		if (matches === undefined || matches === null || !matches.length)
+			return null;
+
+		return ParseUtils.parseMaybeFloat(matches[1]);
+	}
+
+	/**
+	 * Parses a date in MM/DD/YYYY format and returns milliseconds since 1970, UTC.
+	 */
+	 ParseUtils.parseDate = function (string) {
+	 	var matches = string.match(/(\d+)\/(\d+)\/(\d+)/);
+
+	 	if (matches === undefined || matches === null || !matches.length)
+	 		return null;
+
+	 	return Date.UTC(parseInt(matches[3]), parseInt(matches[1]) - 1, parseInt(matches[2]));
+	 }
+
 	/**
 	 * Creates an object from parallel key and value arrays.
 	 * keys {string[]}
@@ -29,6 +58,23 @@ var ParseUtils = (function(ParseUtils, undefined) {
 				groups[groupName] = [el];
 		});
 		return groups;
+	}
+
+	/**
+	 * For each key with a parse function, parses the value of the object property `key`
+	 * and saves it as the same object property. Modifies original object.
+	 * obj {Object}
+	 * parse_funcs {[key {string}, callback {any -> any}]}
+	 */
+	ParseUtils.parsePropertiesByKey = function (obj, parse_funcs) {
+		for (var i in parse_funcs) {
+			var key = parse_funcs[i][0],
+				callback = parse_funcs[i][1];
+			if (typeof callback === 'function')
+				obj[key] = callback(obj[key]);
+		}
+
+		return obj;
 	}
 	
 	/**

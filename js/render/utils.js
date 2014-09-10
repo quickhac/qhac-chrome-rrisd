@@ -3,6 +3,19 @@
 
 var RenderUtils = (function (RenderUtils, undefined) {
 
+	RenderUtils.dateToYMDArray = function (ms) {
+		var date = new Date(ms),
+			year = date.getUTCFullYear(),
+			month = date.getUTCMonth(),
+			day = date.getUTCDate();
+
+		return [year, month, day];
+	}
+
+	RenderUtils.relativeDate = function (ms) {
+		return moment(RenderUtils.dateToYMDArray(ms)).fromNow();
+	}
+
 	RenderUtils.removeStyles = function () {
 		var attr   = 'data-com-aanandprasad-disable-css';
 		var links  = getElements('link[rel=stylesheet]');
@@ -32,4 +45,7 @@ var RenderUtils = (function (RenderUtils, undefined) {
 			return [].slice.call(document.querySelectorAll(selector));
 		}
 	}
+
+	return RenderUtils;
+
 })(RenderUtils || {});

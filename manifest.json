@@ -42,7 +42,15 @@
 		{
 			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/Student/Assignments.aspx*"],
 			"css": ["css/assignments.css"],
-			"js": ["js/vendor/jquery.js", "js/vendor/moment.js", "js/parse/utils.js", "js/parse/parse.js", "js/assignments.js"],
+			"js": [
+				"js/vendor/jquery.js",
+				"js/vendor/moment.js",
+				"js/vendor/react.js",
+				"js/parse/utils.js",
+				"js/parse/parse.js",
+				"js/render/utils.js",
+				"js/render/render.js",
+				"js/assignments.js"],
 			"all_frames": true
 		}
 	]
