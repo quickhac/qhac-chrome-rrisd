@@ -69,7 +69,7 @@
 .sg-main-header > .sg-banner-logo-color > .sg-banner-right > .sg-banner-chooser {
 	display: flex;
 	position: static;
-	margin-top: 17px;
+	margin-top: 18px;
 }
 
 .sg-banner-chooser > .sg-banner-text.sg-banner-text-color {
@@ -262,6 +262,14 @@ label.sg-student-picker-row:hover {
 
 	font-size: 14px;
 	font-weight: 400;
+}
+
+/* dialog */
+
+/* prevent giant dialog when viewing privacy policy and terms of use */
+.ui-dialog.sg-form-dialog {
+	max-height: 480px;
+	overflow: scroll;
 }
 
 .ui-dialog.sg-form-dialog .ui-dialog-buttonpane {

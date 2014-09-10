@@ -1,5 +1,15 @@
-html, body {
-	background: #2c3e50 !important;
+/* nice background image */
+
+html {
+	height: 100%;
+}
+
+body {
+	min-height: 100%;
+
+	background-image: url(chrome-extension://__MSG_@@extension_id__/assets/background.jpg);
+	background-size: cover;
+	background-position: center;
 }
 
 /* remove header background and move heading text to center */
@@ -102,7 +112,7 @@ html, body {
 	border-radius: 2px;
 
 	/* hacks for background and text color since they are forced by webkit */
-	box-shadow: 0 100px 0 rgb(66,93,120) inset;
+	box-shadow: 0 100px 0 rgb(22,105,124) inset;
 	-webkit-text-fill-color: #fff;
 
 	font-family: 'Open Sans';
@@ -129,7 +139,7 @@ html, body {
 	border: none;
 	border-radius: 2px;
 
-	background: rgb(66,93,120);
+	background: rgb(22,105,124);
 	color: rgba(255,255,255,0.75);
 
 	font-family: 'Open Sans';
