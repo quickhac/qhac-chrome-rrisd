@@ -10,9 +10,9 @@ var Renderer = (function(Renderer, undefined) {
 			var asg = this.props.assignment;
 			return (
 				<tr className="assignment">
-					<td class="name" ref="name">{asg.name}</td>
-					<td class="due" ref="due">{RenderUtils.relativeDate(asg.date_due)}</td>
-					<td class="grade" ref="grade">{asg.score}</td>
+					<td className="name" ref="name">{asg.name}</td>
+					<td className="due" ref="due">{RenderUtils.relativeDate(asg.date_due)}</td>
+					<td className="grade" ref="grade">{RenderUtils.showMaybeNum(asg.score)}</td>
 				</tr>
 			)
 		}
@@ -24,14 +24,15 @@ var Renderer = (function(Renderer, undefined) {
 			var cat = this.props.category;
 			return (
 				<div className="category">
-					<h1>{cat.name}</h1>
-					<div class="average">{cat.percent}</div>
-					<table class="assignments">
+					<h2>{cat.name}</h2>
+					<div className="weight">{RenderUtils.showMaybeNum(cat.weight)}</div>
+					<div className="average">{RenderUtils.showMaybeNum(cat.percent, '%')}</div>
+					<table className="assignments">
 						<thead>
-							<tr class="header">
-								<th class="name">Assignment</th>
-								<th class="due">Due Date</th>
-								<th class="grade">Grade</th>
+							<tr className="header">
+								<th className="name">Assignment</th>
+								<th className="due">Due</th>
+								<th className="grade">Grade</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -67,14 +68,14 @@ var Renderer = (function(Renderer, undefined) {
 		showCourse: function () {
 			React.renderComponent(
 				CourseView({course: this.props.course}),
-				$('.course-view')[0]);
+				$('.course-view-wrapper')[0]);
 		},
 		render: function () {
 			var course = this.props.course;
 			return (
 				<div className="sidebar-item" onClick={this.showCourse}>
-					<div class="name">{course.name}</div>
-					<div class="grade">{course.grade}</div>
+					<div className="name">{course.name}</div>
+					<div className="grade">{RenderUtils.showMaybeNum(course.grade)}</div>
 				</div>
 			)
 		}
@@ -101,11 +102,11 @@ var Renderer = (function(Renderer, undefined) {
 			return (
 				<div className="overview">
 					<CourseListSidebar courses={courses} />
-					<CourseView course={null} />
+					<div className="course-view-wrapper"></div>
 				</div>
 			)
 		}
-	})
+	});
 
 	return Renderer;
 	

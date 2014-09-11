@@ -31,6 +31,34 @@ var Parser = (function(Parser, undefined) {
 	// matches "AVG 95.00%" or "AVG95.00%" in free variation
 	Parser.COURSE_AVERAGE_REGEX = /avg\s?([\d\.]+)\%/i;
 
+	// course numbers and course names are always separated by several spaces;
+	// we don't care about the course number, only the course name
+	Parser.COURSE_NAME_REGEX = / {2,}(.*)$/;
+
+	/**
+	 * Takes a string like "AVG100.00%" or "AVG 100.00%" or "" as input and
+	 * returns the numerical value, if any
+	 */
+	function parseCourseGrade(str) {
+		var matches = str.match(Parser.COURSE_AVERAGE_REGEX);
+		if (matches && matches.length)
+			return parseFloat(matches[1]);
+
+		return null;
+	}
+
+	/**
+	 * Takes a string like "3620A - 6    IB Pre-Calculus" and returns the part
+	 * of the string after the giant block of whitespace, or if no giant block
+	 * of whitespace is found, returns the original string.
+	 */
+	function parseCourseName(str) {
+		var matches = str.match(Parser.COURSE_NAME_REGEX);
+		if (matches && matches.length)
+			return matches[1];
+
+		return str;
+	}
 	/*
 	 * Parse the page for course data.
 	 * Return data:
@@ -52,9 +80,8 @@ var Parser = (function(Parser, undefined) {
 				course_obj = {};
 
 			// parse course name and grade (average)
-			course_obj.name = $course.find('.sg-header-square a').text().trim();
-			course_obj.grade = parseFloat($course.find('span[title="AVG"]').text()
-				.match(Parser.COURSE_AVERAGE_REGEX)[1]);
+			course_obj.name = parseCourseName($course.find('.sg-header-square a').text().trim());
+			course_obj.grade = parseCourseGrade($course.find('span[title="AVG"]').text());
 			course_obj.updated = ParseUtils.parseDate($course.find('.sg-header-sub-heading').text());
 
 			// parse assignments table

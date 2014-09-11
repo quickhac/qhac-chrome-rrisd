@@ -1,0 +1,45 @@
+html {
+	height: 100%;
+}
+
+body {
+	min-height: 100%;
+	margin: 0;
+
+	background: #f0f0f0;
+}
+
+.overview {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	display: flex;
+}
+
+.courselist-sidebar {
+	width: 185px;
+	height: 100%;
+	padding: 24px 12px;
+
+	background: #444;
+	color: #eee;
+}
+
+.course-view-wrapper {
+	flex: 1 1;
+	display: flex;
+	justify-content: center;
+	padding: 0 24px;
+}
+
+.course-view {
+	max-width: 600px;
+}
+
+.course-view > .category {
+	margin: 30px 0;
+	padding: 24px;
+
+	background: #fff;
+	box-shadow: 2px 2px 4px rgba(0,0,0,0.125);
+}

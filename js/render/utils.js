@@ -12,10 +12,30 @@ var RenderUtils = (function (RenderUtils, undefined) {
 		return [year, month, day];
 	}
 
+	/**
+	 * Converts a date in the format of milliseconds since 1970 to a date relative
+	 * to the current date.
+	 */
 	RenderUtils.relativeDate = function (ms) {
 		return moment(RenderUtils.dateToYMDArray(ms)).fromNow();
 	}
 
+	/**
+	 * Converts a number to a string (with suffix, if specified) only if it is
+	 * not undefined, null or NaN. Otherwise, returns a blank string.
+	 */
+	RenderUtils.showMaybeNum = function (num, suffix) {
+		suffix = suffix || '';
+
+		if (num === undefined || num === null || isNaN(num))
+			return '';
+
+		return num.toString() + suffix;
+	}
+
+	/**
+	 * Removes all stylesheets from the current page.
+	 */
 	RenderUtils.removeStyles = function () {
 		var attr   = 'data-com-aanandprasad-disable-css';
 		var links  = getElements('link[rel=stylesheet]');

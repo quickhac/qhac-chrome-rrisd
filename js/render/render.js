@@ -10,9 +10,9 @@ var Renderer = (function(Renderer, undefined) {
 			var asg = this.props.assignment;
 			return (
 				React.DOM.tr({className: "assignment"}, 
-					React.DOM.td({class: "name", ref: "name"}, asg.name), 
-					React.DOM.td({class: "due", ref: "due"}, RenderUtils.relativeDate(asg.date_due)), 
-					React.DOM.td({class: "grade", ref: "grade"}, asg.score)
+					React.DOM.td({className: "name", ref: "name"}, asg.name), 
+					React.DOM.td({className: "due", ref: "due"}, RenderUtils.relativeDate(asg.date_due)), 
+					React.DOM.td({className: "grade", ref: "grade"}, RenderUtils.showMaybeNum(asg.score))
 				)
 			)
 		}
@@ -24,14 +24,15 @@ var Renderer = (function(Renderer, undefined) {
 			var cat = this.props.category;
 			return (
 				React.DOM.div({className: "category"}, 
-					React.DOM.h1(null, cat.name), 
-					React.DOM.div({class: "average"}, cat.percent), 
-					React.DOM.table({class: "assignments"}, 
+					React.DOM.h2(null, cat.name), 
+					React.DOM.div({className: "weight"}, RenderUtils.showMaybeNum(cat.weight)), 
+					React.DOM.div({className: "average"}, RenderUtils.showMaybeNum(cat.percent, '%')), 
+					React.DOM.table({className: "assignments"}, 
 						React.DOM.thead(null, 
-							React.DOM.tr({class: "header"}, 
-								React.DOM.th({class: "name"}, "Assignment"), 
-								React.DOM.th({class: "due"}, "Due Date"), 
-								React.DOM.th({class: "grade"}, "Grade")
+							React.DOM.tr({className: "header"}, 
+								React.DOM.th({className: "name"}, "Assignment"), 
+								React.DOM.th({className: "due"}, "Due"), 
+								React.DOM.th({className: "grade"}, "Grade")
 							)
 						), 
 						React.DOM.tbody(null, 
@@ -67,14 +68,14 @@ var Renderer = (function(Renderer, undefined) {
 		showCourse: function () {
 			React.renderComponent(
 				CourseView({course: this.props.course}),
-				$('.course-view')[0]);
+				$('.course-view-wrapper')[0]);
 		},
 		render: function () {
 			var course = this.props.course;
 			return (
 				React.DOM.div({className: "sidebar-item", onClick: this.showCourse}, 
-					React.DOM.div({class: "name"}, course.name), 
-					React.DOM.div({class: "grade"}, course.grade)
+					React.DOM.div({className: "name"}, course.name), 
+					React.DOM.div({className: "grade"}, RenderUtils.showMaybeNum(course.grade))
 				)
 			)
 		}
@@ -101,11 +102,11 @@ var Renderer = (function(Renderer, undefined) {
 			return (
 				React.DOM.div({className: "overview"}, 
 					CourseListSidebar({courses: courses}), 
-					CourseView({course: null})
+					React.DOM.div({className: "course-view-wrapper"})
 				)
 			)
 		}
-	})
+	});
 
 	return Renderer;
 	
