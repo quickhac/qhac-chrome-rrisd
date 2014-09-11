@@ -41,7 +41,7 @@
 		},
 		{
 			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/Student/Assignments.aspx*"],
-			"css": ["css/assignments.css"],
+			"css": ["css/open-sans.css", "css/assignments.css"],
 			"js": [
 				"js/vendor/jquery.js",
 				"js/vendor/moment.js",
