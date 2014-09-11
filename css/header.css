@@ -84,11 +84,10 @@ body {
 }
 
 .sg-banner-menu > .sg-banner-menu-element.sg-menu-element-logoff > a {
-	margin-top: 3px;
-
 	background: none;
 
 	text-indent: 0;
+	font-family: FontAwesome, 'Open Sans'; /* to show both icon and open sans text */
 }
 
 .sg-banner-menu > .sg-banner-menu-element.sg-menu-element-logoff > a:before {

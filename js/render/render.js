@@ -82,7 +82,7 @@ var Renderer = (function(Renderer, undefined) {
 					React.DOM.div({className: "header"}, 
 						React.DOM.div({className: "vert"}, 
 							React.DOM.h1(null, course.name), 
-							React.DOM.div({className: "updated"}, 'Updated ' + RenderUtils.relativeDate(course.updated))
+							React.DOM.div({className: "updated"}, RenderUtils.relativeDate(course.updated, 'Updated ') || 'No grades')
 						), 
 						React.DOM.div({className: "grade"}, RenderUtils.showMaybeNum(course.grade))
 					), 

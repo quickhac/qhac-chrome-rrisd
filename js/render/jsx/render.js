@@ -82,7 +82,7 @@ var Renderer = (function(Renderer, undefined) {
 					<div className="header">
 						<div className="vert">
 							<h1>{course.name}</h1>
-							<div className="updated">{'Updated ' + RenderUtils.relativeDate(course.updated)}</div>
+							<div className="updated">{RenderUtils.relativeDate(course.updated, 'Updated ') || 'No grades'}</div>
 						</div>
 						<div className="grade">{RenderUtils.showMaybeNum(course.grade)}</div>
 					</div>

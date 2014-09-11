@@ -16,8 +16,11 @@ var RenderUtils = (function (RenderUtils, undefined) {
 	 * Converts a date in the format of milliseconds since 1970 to a date relative
 	 * to the current date.
 	 */
-	RenderUtils.relativeDate = function (ms) {
-		return moment(RenderUtils.dateToYMDArray(ms)).fromNow();
+	RenderUtils.relativeDate = function (ms, prefix, suffix) {
+		if (ms === undefined || ms === null || !ms) return '';
+		prefix = prefix || '';
+		suffix = suffix || '';
+		return prefix + moment(RenderUtils.dateToYMDArray(ms)).fromNow(true) + suffix;
 	}
 
 	/**
@@ -78,3 +81,36 @@ var RenderUtils = (function (RenderUtils, undefined) {
 	return RenderUtils;
 
 })(RenderUtils || {});
+
+// change the moment stuff to show no more precision than per day
+(function() {
+
+	moment.locale('en', {
+		relativeTime : function (number, withoutSuffix, key, isFuture) {
+			// todo: increase readability
+			function fmt(str, num) { return str.replace('%s', num); }
+			function rel(str) { return isFuture ? fmt(fmt('in %s', str), number) : fmt(fmt('%s ago', str), number); }
+
+			switch (key) {
+				case 's':
+				case 'm':
+				case 'mm':
+				case 'h':
+				case 'hh':
+					return 'today';
+				case 'd':
+					if (isFuture) return 'tomorrow'; else return 'yesterday';
+				case 'dd':
+					return rel('%s days');
+				case 'M':
+					return rel('a month');
+				case 'MM':
+					return rel('%s months');
+				case 'y':
+					return rel('a year');
+				case 'yy':
+					return rel('%s years');
+			}
+		}
+	});
+})();
