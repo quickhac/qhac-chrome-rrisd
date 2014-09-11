@@ -24,9 +24,11 @@ var Renderer = (function(Renderer, undefined) {
 			var cat = this.props.category;
 			return (
 				<div className="category">
-					<h2>{cat.name}</h2>
-					<div className="weight">{RenderUtils.showMaybeNum(cat.weight)}</div>
-					<div className="average">{RenderUtils.showMaybeNum(cat.percent, '%')}</div>
+					<div className="card-title">
+						<h2>{cat.name}</h2>
+						<div className="weight">{RenderUtils.showMaybeNum(cat.weight, '× ')}</div>
+						<div className="average">{RenderUtils.showMaybeNum(cat.percent, null, '%')}</div>
+					</div>
 					<table className="assignments">
 						<thead>
 							<tr className="header">

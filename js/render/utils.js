@@ -21,16 +21,17 @@ var RenderUtils = (function (RenderUtils, undefined) {
 	}
 
 	/**
-	 * Converts a number to a string (with suffix, if specified) only if it is
+	 * Converts a number to a string (with prefix and/or suffix, if specified) only if it is
 	 * not undefined, null or NaN. Otherwise, returns a blank string.
 	 */
-	RenderUtils.showMaybeNum = function (num, suffix) {
+	RenderUtils.showMaybeNum = function (num, prefix, suffix) {
+		prefix = prefix || '';
 		suffix = suffix || '';
 
 		if (num === undefined || num === null || isNaN(num))
 			return '';
 
-		return num.toString() + suffix;
+		return prefix + num.toString() + suffix;
 	}
 
 	/**

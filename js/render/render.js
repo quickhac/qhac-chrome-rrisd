@@ -24,9 +24,11 @@ var Renderer = (function(Renderer, undefined) {
 			var cat = this.props.category;
 			return (
 				React.DOM.div({className: "category"}, 
-					React.DOM.h2(null, cat.name), 
-					React.DOM.div({className: "weight"}, RenderUtils.showMaybeNum(cat.weight)), 
-					React.DOM.div({className: "average"}, RenderUtils.showMaybeNum(cat.percent, '%')), 
+					React.DOM.div({className: "card-title"}, 
+						React.DOM.h2(null, cat.name), 
+						React.DOM.div({className: "weight"}, RenderUtils.showMaybeNum(cat.weight, '× ')), 
+						React.DOM.div({className: "average"}, RenderUtils.showMaybeNum(cat.percent, null, '%'))
+					), 
 					React.DOM.table({className: "assignments"}, 
 						React.DOM.thead(null, 
 							React.DOM.tr({className: "header"}, 
