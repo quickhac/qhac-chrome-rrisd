@@ -8,7 +8,11 @@ body {
 
 	background: #f0f0f0 !important;
 
-	font-family: 'Open Sans';
+	font-family: 'Open Sans', sans-serif;
+}
+
+div, span, th, td, label, h1, h2, h3 {
+	font-family: 'Open Sans', sans-serif;
 }
 
 /* hide main content */
