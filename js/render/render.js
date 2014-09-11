@@ -3,6 +3,19 @@
 // dependencies: React, RenderUtils
 
 var Renderer = (function(Renderer, undefined) {
+
+	function showScoreAside(asg) {
+		var max_pts = asg.total_points,
+			weight = asg.weight,
+			asides = [''];
+
+		if (!isNaN(max_pts) && max_pts !== 100)
+			asides.push('/ ' + max_pts);
+		if (!isNaN(weight) && weight !== 1)
+			asides.push('× ' + weight);
+
+		return asides.join(' ');
+	}
 	
 	var AssignmentRow = Renderer.AssignmentRow = React.createClass({
 		displayName: 'AssignmentRow',
@@ -12,7 +25,10 @@ var Renderer = (function(Renderer, undefined) {
 				React.DOM.tr({className: "assignment"}, 
 					React.DOM.td({className: "name", ref: "name"}, asg.name), 
 					React.DOM.td({className: "due", ref: "due"}, RenderUtils.relativeDate(asg.date_due)), 
-					React.DOM.td({className: "grade", ref: "grade"}, RenderUtils.showMaybeNum(asg.score))
+					React.DOM.td({className: "grade", ref: "grade"}, 
+						React.DOM.span({className: "score"}, RenderUtils.showMaybeNum(asg.score)), 
+						React.DOM.span({className: "aside"}, showScoreAside(asg))
+					)
 				)
 			)
 		}
@@ -27,7 +43,7 @@ var Renderer = (function(Renderer, undefined) {
 					React.DOM.div({className: "card-title"}, 
 						React.DOM.h2(null, cat.name), 
 						React.DOM.div({className: "weight"}, RenderUtils.showMaybeNum(cat.weight, '× ')), 
-						React.DOM.div({className: "average"}, RenderUtils.showMaybeNum(cat.percent, null, '%'))
+						React.DOM.div({className: "average"}, RenderUtils.showMaybeNum(cat.percent))
 					), 
 					React.DOM.table({className: "assignments"}, 
 						React.DOM.thead(null, 
@@ -39,7 +55,7 @@ var Renderer = (function(Renderer, undefined) {
 						), 
 						React.DOM.tbody(null, 
 							cat.assignments.map(function (asg) {
-								return AssignmentRow({key: asg.id, assignment: asg})
+								return AssignmentRow({assignment: asg})
 							})
 						)
 					)
@@ -53,12 +69,25 @@ var Renderer = (function(Renderer, undefined) {
 		render: function () {
 			var course = this.props.course;
 			if (course === undefined || course === null)
-				return ( React.DOM.div({className: "course-view"}) )
+				return (
+					React.DOM.div({className: "course-view"}, 
+						React.DOM.div({className: "notice"}, 
+							"Click on a course to see its grades.", React.DOM.br(null), React.DOM.br(null), 
+							"To view your grades using the district-provided interface, open Home Access Center in incognito mode."
+						)
+					) )
 
 			return (
 				React.DOM.div({className: "course-view"}, 
+					React.DOM.div({className: "header"}, 
+						React.DOM.div({className: "vert"}, 
+							React.DOM.h1(null, course.name), 
+							React.DOM.div({className: "updated"}, 'Updated ' + RenderUtils.relativeDate(course.updated))
+						), 
+						React.DOM.div({className: "grade"}, RenderUtils.showMaybeNum(course.grade))
+					), 
 					course.categories.map(function (cat) {
-						return CategoryCard({key: cat.id, category: cat})
+						return CategoryCard({category: cat})
 					})
 				)
 			)
@@ -81,16 +110,58 @@ var Renderer = (function(Renderer, undefined) {
 				)
 			)
 		}
-	})
+	});
+
+	var MarkingPeriodSelector = Renderer.MarkingPeriodSelector = React.createClass({
+		displayName: 'MarkingPeriodSelector',
+		getInitialState: function () {
+			return { selected: this.props.selectedIndex }
+		},
+		selectIndex: function (i) {
+			this.setState({ selected: i }, function () {
+				window.setTimeout(function () { $('.mp-select').submit(); }, 100);
+			});
+		},
+		render: function () {
+			var state = this.props.state,
+				selected = this.state.selected,
+				max = this.props.maxIndex,
+				radios = [];
+
+			for (var i = 1; i <= max; i++)
+				radios.push(
+					React.DOM.div({className: "mp-option"}, 
+						React.DOM.input({type: "radio", id: 'mp-option-'+i, name: "ctl00$plnMain$ddlReportCardRuns", value: i, defaultChecked: selected===i}), 
+						React.DOM.label({htmlFor: 'mp-option-'+i, onClick: this.selectIndex.bind(null,i)}, i)
+					)
+				);
+
+			return (
+				React.DOM.form({className: "mp-select", method: "post", action: "Assignments.aspx"}, 
+					RenderUtils.mapObjToArr(state, function (k, v) {
+						return (
+							React.DOM.input({type: "hidden", name: k, value: v})
+						)
+					}).concat(radios)
+				)
+			)
+		}
+	});
 
 	var CourseListSidebar = Renderer.CourseListSidebar = React.createClass({
 		displayName: 'CourseListSidebar',
 		render: function () {
-			var courses = this.props.courses;
+			var courses = this.props.courses,
+				state = this.props.asp_state,
+				selected = this.props.current_mp,
+				max = this.props.max_mp;
 			return (
 				React.DOM.div({className: "courselist-sidebar"}, 
+					React.DOM.h3(null, "Marking Period"), 
+					MarkingPeriodSelector({state: state, selectedIndex: selected, maxIndex: max}), 
+					React.DOM.h3(null, "Courses"), 
 					courses.map(function (course) {
-						return CourseListSidebarItem({key: course.id, course: course})
+						return CourseListSidebarItem({course: course})
 					})
 				)
 			)
@@ -100,10 +171,13 @@ var Renderer = (function(Renderer, undefined) {
 	var Overview = Renderer.Overview = React.createClass({
 		displayName: 'Overview',
 		render: function () {
-			var courses = this.props.courses;
+			var courses = this.props.courses,
+				asp_state = this.props.asp_state,
+				current_mp = this.props.current_mp,
+				max_mp = this.props.max_mp;
 			return (
 				React.DOM.div({className: "overview"}, 
-					CourseListSidebar({courses: courses}), 
+					CourseListSidebar({courses: courses, asp_state: asp_state, current_mp: current_mp, max_mp: max_mp}), 
 					React.DOM.div({className: "course-view-wrapper"})
 				)
 			)

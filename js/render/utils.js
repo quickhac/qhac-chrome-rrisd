@@ -34,6 +34,14 @@ var RenderUtils = (function (RenderUtils, undefined) {
 		return prefix + num.toString() + suffix;
 	}
 
+	RenderUtils.mapObjToArr = function (obj, callback) {
+		var arr = [];
+		for (var k in obj)
+			if (obj.hasOwnProperty(k))
+				arr.push(callback(k, obj[k]));
+		return arr;
+	}
+
 	/**
 	 * Removes all stylesheets from the current page.
 	 */

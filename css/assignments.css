@@ -6,15 +6,25 @@ body {
 	min-height: 100%;
 	margin: 0;
 
-	background: #f0f0f0;
+	background: #f0f0f0 !important;
+
+	font-family: 'Open Sans';
 }
 
+/* hide main content */
+#MainContent {
+	display: none;
+}
+
+/* ovverview*/
 .overview {
 	position: absolute;
 	height: 100%;
 	width: 100%;
 	display: flex;
 }
+
+/* sidebar */
 
 .courselist-sidebar {
 	width: 240px;
@@ -27,14 +37,14 @@ body {
 
 .sidebar-item {
 	display: flex;
-	padding: 12px;
+	padding: 8px 12px;
 
 	font-size: 14px;
 
 	cursor: pointer;
 }
 
-.sidebar-item:hover {
+.sidebar-item:hover, .sidebar-item.selected {
 	background: rgba(0,0,0,0.375);
 }
 
@@ -46,6 +56,48 @@ body {
 	margin-left: 8px;
 	font-weight: 600;
 }
+
+/* marking period selector */
+
+.mp-select {
+	display: flex;
+	width: 100%;
+	margin-bottom: 16px;
+}
+
+.courselist-sidebar h3 {
+	margin: 0;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: 600;
+	color: #aaa;
+}
+
+.mp-select .mp-option {
+	flex: 1 1;
+	height: 36px;
+
+	text-align: center;
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.mp-option input {
+	display: none;
+}
+
+.mp-option label {
+	display: block;
+	padding-top: 6px;
+	cursor: pointer;
+}
+
+.mp-option input:checked + label, .mp-option label:hover {
+	background: rgba(255,255,255,0.25);
+}
+
+/* course view */
 
 .course-view-wrapper {
 	flex: 1 1;
@@ -59,6 +111,40 @@ body {
 .course-view {
 	max-width: 600px;
 	width: 100%;
+}
+
+.course-view > .notice {
+	margin: 48px 0;
+	font-weight: 300;
+}
+
+.course-view > .header {
+	display: flex;
+	margin-top: 48px;
+}
+
+.course-view > .header .vert {
+	flex: 1 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.course-view > .header h1 {
+	margin-top: 0;
+	margin-bottom: 4px;
+	color: #999;
+	font-weight: 300;
+}
+
+.course-view > .header .updated {
+	color: #666;
+	font-weight: 300;
+}
+
+.course-view > .header .grade {
+	color: #999;
+	font-size: 32px;
+	font-weight: 300;
 }
 
 .course-view table {
@@ -101,6 +187,7 @@ body {
 }
 
 .category .average {
+	color: #555;
 	font-size: 24px;
 	font-weight: 300;
 }
@@ -123,4 +210,12 @@ body {
 
 .assignment {
 	font-weight: 300;
+}
+
+.assignment .grade .score {
+	font-weight: 600;
+}
+
+.assignment .grade .aside {
+	color: #aaa;
 }

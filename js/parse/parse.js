@@ -108,7 +108,7 @@ var Parser = (function(Parser, undefined) {
 				function (asg) { return asg.category; });
 			// put each category's assignments under the category
 			course_obj.categories.forEach(function (cat, idx) {
-				course_obj.categories[idx].assignments = grouped_assignments[cat.name];
+				cat.assignments = grouped_assignments[cat.name];
 				delete grouped_assignments[cat.name];
 			})
 			// for categories not listed in the category table, add a category
@@ -126,6 +126,33 @@ var Parser = (function(Parser, undefined) {
 
 			return course_obj;
 		});
+	}
+
+	/*
+	 * Returns the current marking period and the maximum available marking period.
+	 * returns: [current, max]
+	 */
+	Parser.getMarkingPeriodInfo = function (doc) {
+		var opts = $('#plnMain_ddlReportCardRuns').children(),
+			selected = opts.filter('[selected]'),
+			last = opts.last();
+
+		return [parseInt(selected.val()), parseInt(last.val())];
+	}
+
+	/**
+	 * Returns an object containing all of the names and values of the ASP.NET
+	 * state variables on the page.
+	 * To refresh the page, set __EVENTTARGET to ctl00$plnMain$btnRefreshView
+	 */
+	Parser.getASPState = function (doc) {
+		var $elems = $('input[type=hidden]'), state = {};
+
+		[].forEach.call($elems, function (el, idx) {
+			state[el.name] = el.value;
+		});
+
+		return state;
 	}
 
 	return Parser;
