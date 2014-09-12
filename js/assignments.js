@@ -1,5 +1,7 @@
 // dependencies: JQuery, moment, React, Parser, ParseUtils, Renderer, RenderUtils
 
+'use strict';
+
 $(function () {
 	try {
 		// hack; hide hidden asterisks so they don't show up in innerText of assignment names
@@ -20,6 +22,7 @@ $(function () {
 				asp_state: asp_state
 			}), document.body, function () {
 				React.renderComponent(Renderer.CourseView(), $('.course-view-wrapper')[0])
+				$('.courselist-sidebar').append('<img id="logo" src="' + chrome.extension.getURL('assets/logowhite.svg') + '">');
 			});
 
 		// remove all styles, since we're gonna be rewriting the entire page anyway

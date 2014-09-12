@@ -43,6 +43,9 @@ div, span, th, td, label, h1, h2, h3 {
 	display: flex;
 	padding: 8px 12px;
 
+	background: rgba(0,0,0,0);
+	transition: background 100ms;
+
 	font-size: 14px;
 
 	cursor: pointer;
@@ -93,12 +96,28 @@ div, span, th, td, label, h1, h2, h3 {
 
 .mp-option label {
 	display: block;
-	padding-top: 6px;
+	padding-top: 7px;
+	padding-bottom: 6px;
 	cursor: pointer;
+
+	background: rgba(255,255,255,0);
+
+	transition: background 100ms;
 }
 
 .mp-option input:checked + label, .mp-option label:hover {
 	background: rgba(255,255,255,0.25);
+}
+
+/* logo */
+
+#logo {
+	position: absolute;
+	bottom: 20px;
+	left: -4px;
+	width: 240px;
+	height: 240px;
+	opacity: 0.125;
 }
 
 /* course view */
@@ -182,7 +201,7 @@ div, span, th, td, label, h1, h2, h3 {
 	padding: 24px;
 
 	background: #fff;
-	box-shadow: 2px 2px 4px rgba(0,0,0,0.125);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.125);
 }
 
 .category .card-title {
@@ -223,6 +242,8 @@ div, span, th, td, label, h1, h2, h3 {
 }
 
 .assignment {
+	background: rgba(0,0,0,0);
+	transition: background 100ms;
 	font-weight: 300;
 }
 

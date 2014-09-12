@@ -2,6 +2,8 @@
 
 // dependencies: React, RenderUtils
 
+'use strict';
+
 var Renderer = (function(Renderer, undefined) {
 
 	function showScoreAside(asg) {

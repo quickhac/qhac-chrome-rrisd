@@ -135,6 +135,8 @@ body {
 }
 
 .sg-banner-submenu > li > a {
+	background: rgba(224,224,224,0);
+	transition: background 100ms;
 	color: #888 !important;
 
 	font-size: 14px;
@@ -168,6 +170,11 @@ body {
 
 	font-family: 'Open Sans';
 	font-size: 14px;
+}
+
+.sg-hac-menu-options > .sg-hac-menu-option {
+	background: rgba(255,255,255,0);
+	transition: background 100ms;
 }
 
 .sg-hac-menu-options > .sg-hac-menu-option > img {
@@ -215,7 +222,8 @@ body {
 	margin: 0;
 	border-radius: 0;
 
-	background: none;
+	background: rgba(255,255,255,0);
+	transition: background 100ms;
 
 	font-family: 'Open Sans';
 	font-weight: 400;
@@ -316,5 +324,6 @@ label.sg-student-picker-row:hover {
 }
 
 .sg-main-footer > .sg-hac-copyright {
+	width: 32em;
 	text-align: center;
 }
