@@ -29,6 +29,7 @@ var Renderer = (function(Renderer, undefined) {
 						<span className="score">{RenderUtils.showMaybeNum(asg.score)}</span>
 						<span className="aside">{showScoreAside(asg)}</span>
 					</td>
+					<td className="avg-grade" ref="avg-grade">{RenderUtils.showMaybeNum(asg.average_score)}</td>
 				</tr>
 			)
 		}
@@ -51,6 +52,7 @@ var Renderer = (function(Renderer, undefined) {
 								<th className="name">Assignment</th>
 								<th className="due">Due</th>
 								<th className="grade">Grade</th>
+								<th className="avg-grade">Avg Grade</th>
 							</tr>
 						</thead>
 						<tbody>

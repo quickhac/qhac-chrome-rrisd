@@ -153,6 +153,11 @@ div, span, th, td, label, h1, h2, h3 {
 
 .course-view table {
 	width: 100%;
+	padding: 1px 0;
+
+	/* cellspacing=0 */
+	border-spacing: 0;
+	border-collapse: separate;
 }
 
 .course-view table .name {
@@ -164,7 +169,12 @@ div, span, th, td, label, h1, h2, h3 {
 }
 
 .course-view table .grade {
+	width: 1.5%;
+}
+
+.course-view table .avg-grade {
 	width: 1%;
+	color: #aaa;
 }
 
 .course-view > .category {
@@ -214,6 +224,10 @@ div, span, th, td, label, h1, h2, h3 {
 
 .assignment {
 	font-weight: 300;
+}
+
+.assignment:hover {
+	background: rgba(0,0,0,0.03125);
 }
 
 .assignment .grade .score {
