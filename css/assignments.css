@@ -41,7 +41,10 @@ div, span, th, td, label, h1, h2, h3 {
 
 .sidebar-item {
 	display: flex;
+	position: relative;
 	padding: 8px 12px;
+
+	z-index: 1;
 
 	background: rgba(0,0,0,0);
 	transition: background 100ms;
