@@ -85,11 +85,23 @@ var RenderUtils = (function (RenderUtils, undefined) {
 // change the moment stuff to show no more precision than per day
 (function() {
 
+	// this is kind of a hack because we add the pre/suffixes in this method,
+	// which we're not supposed to do, but as far as I know this is the only way
+	// to force moment not to add the 'in %s' or '%s ago' prefixes/suffixes for
+	// 'today', 'yesterday', and 'tomorrow'
 	moment.locale('en', {
 		relativeTime : function (number, withoutSuffix, key, isFuture) {
-			// todo: increase readability
-			function fmt(str, num) { return str.replace('%s', num); }
-			function rel(str) { return isFuture ? fmt(fmt('in %s', str), number) : fmt(fmt('%s ago', str), number); }
+			// kind of a subset of C printf functionality; replaces %s with a
+			// specified string
+			function fmt(str, num) {
+				return str.replace('%s', num);
+			}
+			
+			// takes a formatting string and puts in the number and prefix/suffix
+			function rel(str) {
+				return isFuture ?
+						fmt(fmt('in %s', str), number) :
+						fmt(fmt('%s ago', str), number); }
 
 			switch (key) {
 				case 's':

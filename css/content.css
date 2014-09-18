@@ -1,3 +1,11 @@
+/* make it scrollable */
+html {
+	height: 100%;
+	overflow: scroll;
+	display: flex;
+	flex-direction: column;
+}
+
 /* remove gradients and other ugly things from tables */
 
 .sg-header, .sg-header-no-rounding {
