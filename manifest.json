@@ -26,6 +26,14 @@
 		"assets/logowhite.svg"
 	],
 
+	"background": {
+		"scripts": [
+			"js/vendor/jquery.js",
+			"js/parse/parse.js",
+			"js/store/store.js",
+			"js/retrieve/retrieve.js"]
+	},
+
 	"content_scripts": [
 		{
 			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Account/LogOn*"],
@@ -40,7 +48,7 @@
 		},
 		{
 			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/*"],
-			"excluse_matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/Student/Assignments.aspx*"],
+			"exclude_matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/Student/Assignments.aspx*"],
 			"css": ["css/open-sans.css", "css/content.css"],
 			"all_frames": true
 		},
@@ -51,7 +59,6 @@
 				"js/vendor/jquery.js",
 				"js/vendor/moment.js",
 				"js/vendor/react.js",
-				"js/parse/utils.js",
 				"js/parse/parse.js",
 				"js/render/utils.js",
 				"js/render/render.js",

@@ -2,6 +2,8 @@
 
 // dependencies: React, RenderUtils
 
+'use strict';
+
 var Renderer = (function(Renderer, undefined) {
 
 	function showScoreAside(asg) {
@@ -28,8 +30,7 @@ var Renderer = (function(Renderer, undefined) {
 					React.DOM.td({className: "grade", ref: "grade"}, 
 						React.DOM.span({className: "score"}, RenderUtils.showMaybeNum(asg.score)), 
 						React.DOM.span({className: "aside"}, showScoreAside(asg))
-					), 
-					React.DOM.td({className: "avg-grade", ref: "avg-grade"}, RenderUtils.showMaybeNum(asg.average_score))
+					)
 				)
 			)
 		}
@@ -51,8 +52,7 @@ var Renderer = (function(Renderer, undefined) {
 							React.DOM.tr({className: "header"}, 
 								React.DOM.th({className: "name"}, "Assignment"), 
 								React.DOM.th({className: "due"}, "Due"), 
-								React.DOM.th({className: "grade"}, "Grade"), 
-								React.DOM.th({className: "avg-grade"}, "Avg Grade")
+								React.DOM.th({className: "grade"}, "Grade")
 							)
 						), 
 						React.DOM.tbody(null, 
