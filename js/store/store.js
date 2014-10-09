@@ -25,8 +25,12 @@ var Crypt = (function (Crypt, undefined) {
 
 var Store = (function (Store, undefined) {
 
-	// init
-	if (localStorage.getItem('state') != null) {
+	// possible states:
+	//     0: not logged in
+	//     1: unconfirmed credentials
+	//     2: needs select student
+	//     3: logged in
+	if (localStorage.getItem('state') == null) {
 		localStorage.setItem('state', '0');
 	}
 
@@ -38,19 +42,33 @@ var Store = (function (Store, undefined) {
 	}
 
 	Store.getCredentials = function () {
-		var c = JSON.parse(Crypt.decrypt(localStorage.getItem('credentials')));
+		var c = localStorage.getItem('credentials');
+		if (c == null) return null;
+		c = JSON.parse(Crypt.decrypt(c));
 		return {
 			username: Crypt.decrypt(c.username),
 			password: Crypt.decrypt(c.password)
 		}
 	}
 
+	Store.setAccountName = function (name) {
+		localStorage.setItem('accountName', name);
+	}
+
+	Store.getAccountName = function () {
+		return localStorage.getItem('accountName');
+	}
+
+	Store.clearCredentials = function () {
+		localStorage.removeItem('credentials');
+	}
+
 	Store.setStudent = function (student) {
-		localStorage.setItem('student', student);
+		localStorage.setItem('student', JSON.stringify(student));
 	}
 
 	Store.getStudent = function () {
-		return localStorage.getItem('student');
+		return JSON.parse(localStorage.getItem('student'));
 	}
 
 	Store.setAssignments = function (data) {
@@ -61,11 +79,11 @@ var Store = (function (Store, undefined) {
 		return localStorage.getItem('assignments');
 	}
 
-	Store.setLoggedInState = function (state) {
+	Store.setState = function (state) {
 		localStorage.setItem('state', state);
 	}
 
-	Store.getLoggedInState = function () {
+	Store.getState = function () {
 		return localStorage.getItem('state');
 	}
 	

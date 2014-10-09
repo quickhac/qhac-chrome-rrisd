@@ -149,6 +149,20 @@ body {
 	font-size: 16px;
 }
 
+/* save button */
+#qhac-save-wrapper {
+	margin: 6px 0 -2px 0;
+}
+
+#qhac-save {
+	margin-right: 6px;
+}
+
+label[for=qhac-save] {
+	font-weight: 400;
+	font-size: 15px;
+}
+
 /* disclaimer */
 #qhac-disclaimer {
 	width: 332px;

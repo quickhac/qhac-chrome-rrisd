@@ -1,20 +1,6 @@
-// dependencies: JQuery
+// dependencies: JQuery, RetrieveUtils
 
 'use strict';
-
-var RetrieveUtils = (function (RetrieveUtils, undefined) {
-	
-	// constants
-	var parser = new DOMParser();
-
-	// methods
-	RetrieveUtils.parseDoc = function (data) {
-		return parser.parseFromString(data, 'text/html');
-	}
-
-	return RetrieveUtils;
-
-})(RetrieveUtils || {});
 
 var Validate = (function (Validate, undefined) {
 
@@ -55,27 +41,13 @@ var Retrieve = (function (Retrieve, undefined) {
 	 */
 	function ensureLoggedIn () {
 		return new Promise(function (resolve, reject) {
-			if (username == null || password == null)
+			if (lastSuccessfulRequestTime === 0 && (username == null || password == null))
 				reject(new Error('not logged in'));
 			else if (+new Date - lastSuccessfulRequestTime > Retrieve.SESSION_TIMEOUT)
 				Retrieve.login(username, password).done(resolve).fail(reject);
 			else
 				resolve();
 		});
-	}
-
-	/**
-	 * true iff the document has a student picker on it
-	 */
-	function hasPicker (doc) {
-		return !$('.sg-banner-chooser > .sg-button', doc).length;
-	}
-
-	/**
-	 * Returns the currently selected student's name
-	 */
-	function getSelectedStudent (doc) {
-		return $('.sg-banner-chooser > .sg-banner-text').text().trim();
 	}
 
 	/**
@@ -102,11 +74,20 @@ var Retrieve = (function (Retrieve, undefined) {
 				password = p;
 				var doc = RetrieveUtils.parseDoc(data);
 				resolve({
-					hasPicker: hasPicker(doc),
-					selectedStudent: getSelectedStudent(doc)
+					hasPicker: RetrieveUtils.hasPicker(doc),
+					selectedStudent: RetrieveUtils.getSelectedStudent(doc)
 				});
 			}).fail(reject);
 		});
+	}
+
+	/**
+	 * Sets the information to log in with
+	 */
+	Retrieve.setCredentials = function (u, p) {
+		username = u;
+		password = p;
+		lastSuccessfulRequestTime = 0;
 	}
 
 	/**
