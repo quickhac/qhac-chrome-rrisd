@@ -33,6 +33,7 @@ var StudentPicker = (function (StudentPicker, undefined) {
 								<Student submitFn={submitFn} student={student} />
 							)
 						})}
+						<Student submitFn={submitFn} student={{name: '$All', studentId: "all"}} />
 					</div>
 				</div>
 			)

@@ -25,6 +25,12 @@ var Crypt = (function (Crypt, undefined) {
 
 var Store = (function (Store, undefined) {
 
+	var DEFAULT_OPTIONS = {
+		student: [],
+		notifications: true,
+		notificationInterval: 60
+	};
+
 	// possible states:
 	//     0: not logged in
 	//     1: unconfirmed credentials
@@ -63,6 +69,14 @@ var Store = (function (Store, undefined) {
 		localStorage.removeItem('credentials');
 	}
 
+	Store.setStudents = function (students) {
+		localStorage.setItem('students', JSON.stringify(students));
+	}
+
+	Store.getStudents = function () {
+		return JSON.parse(localStorage.getItem('students'));
+	}
+
 	Store.setStudent = function (student) {
 		localStorage.setItem('student', JSON.stringify(student));
 	}
@@ -85,6 +99,14 @@ var Store = (function (Store, undefined) {
 
 	Store.getState = function () {
 		return localStorage.getItem('state');
+	}
+
+	Store.setOptions = function (options) {
+		localStorage.setItem('options', JSON.stringify(options));
+	}
+
+	Store.getOptions = function () {
+		return localStorage.getItem('options') || DEFAULT_OPTIONS;
 	}
 	
 	return Store;

@@ -38,7 +38,6 @@
 			"css": ["css/open-sans.css", "css/logon.css"],
 			"js": [
 				"js/vendor/jquery.js",
-				"js/store/store.js",
 				"js/logon.js"]
 		},
 		{
@@ -49,9 +48,7 @@
 			"css": ["css/open-sans.css", "css/header.css"],
 			"js": [
 				"js/vendor/jquery.js",
-				"js/vendor/moment.js",
 				"js/vendor/react.js",
-				"js/store/store.js",
 				"js/render/utils.js",
 				"js/render/picker.js",
 				"js/retrieve/utils.js",

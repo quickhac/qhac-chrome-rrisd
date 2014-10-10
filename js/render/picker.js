@@ -32,7 +32,8 @@ var StudentPicker = (function (StudentPicker, undefined) {
 							return (
 								Student({submitFn: submitFn, student: student})
 							)
-						})
+						}), 
+						Student({submitFn: submitFn, student: {name: '$All', studentId: "all"}})
 					)
 				)
 			)
