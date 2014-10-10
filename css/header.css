@@ -313,7 +313,7 @@ label.sg-student-picker-row:hover {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	width: 100%; /* ??? */
+	width: 100%;
 	opacity: 1;
 
 	background: rgba(0,0,0,0.25);
@@ -387,6 +387,13 @@ label.sg-student-picker-row:hover {
 }
 
 .sg-main-footer > .sg-hac-copyright {
+	position: relative;
+	top: -3px;
 	width: 32em;
+	color: #888;
 	text-align: center;
+}
+
+.sg-main-footer > .sg-hac-footer-links {
+	top: 3px;
 }

@@ -43,7 +43,9 @@
 		},
 		{
 			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/*"],
-			"exclude_matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/*"],
+			"exclude_matches": [
+				"https://accesscenter.roundrockisd.org/HomeAccess/Content/*",
+				"https://accesscenter.roundrockisd.org/HomeAccess/Account/LogOn*"],
 			"css": ["css/open-sans.css", "css/header.css"],
 			"js": [
 				"js/vendor/jquery.js",

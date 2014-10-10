@@ -32,7 +32,12 @@ $(function() {
 		// complete the login process
 		Store.setAccountName(accountName);
 		chrome.runtime.sendMessage({type: 'declareLoggedOut'});
+		Store.setState(state = '2'); // continue
+	}
 
+	// we can either continue from state 1, or, if the credentials were confirmed
+	// but the user has not selected a student to display, we can start from state 2
+	if (state === '2') {
 		// set state based on presence of student picker
 		if (RetrieveUtils.hasPicker(document.body)) {
 			Store.setState('2');

@@ -147,6 +147,12 @@ body {
 
 	font-family: 'Open Sans';
 	font-size: 16px;
+
+	cursor: pointer;
+}
+
+.q-logon {
+	margin-top: 12px;
 }
 
 /* save button */

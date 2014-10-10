@@ -25,18 +25,35 @@ $(function() {
 			'<label for="qhac-save">Save information in QuickHAC</label>' +
 		'</div>');
 
+	// add 'Log in to $ACCOUNT' if logged in
+	if (parseInt(Store.getState()) >= 2) {
+		$('.sg-logon-button').after(
+			$('<button class="sg-button sg-logon-button q-logon">' +
+				'<span class="ui-button-text">' +
+					'Login to "' + Store.getCredentials().username + '"' +
+				'</span>' +
+			'</button>').click(function () {
+				var credentials = Store.getCredentials();
+				$('#qhac-save').prop('checked', false);
+				$('#LogOnDetails_UserName').val(credentials.username);
+				$('#LogOnDetails_Password').val(credentials.password);
+				$('form').submit();
+			}));
+	}
+
 	// hook onto login button to save information
 	$('form').submit(function (e) {
-		if (!$('#qhac-save').val() === 'on')
+		if (!$('#qhac-save').prop('checked')) {
 			return true;
+		} else {
+			var username = $('#LogOnDetails_UserName').val(),
+				password = $('#LogOnDetails_Password').val();
+			
+			Store.setCredentials(username, password);
+			Store.setState('1');
 
-		var username = $('#LogOnDetails_UserName').val(),
-			password = $('#LogOnDetails_Password').val();
-		
-		Store.setCredentials(username, password);
-		Store.setState('1');
-
-		return true;
+			return true;
+		}
 	});
 
 	// delete credentials if login attempt failed
