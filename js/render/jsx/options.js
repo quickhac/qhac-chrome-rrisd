@@ -44,6 +44,7 @@ var Options = (function (Options, undefined) {
 				<div className="wrapper">
 					<div className="panel">
 						<h2>Student</h2>
+						<p className="sub">QuickHAC can display grades for just you if you are a student, or every student if you are a parent.</p>
 
 						<div className="option">
 							{students.map((function (student) {
@@ -73,6 +74,7 @@ var Options = (function (Options, undefined) {
 
 					<div className="panel">
 						<h2>Notifications</h2>
+						<p className="sub">QuickHAC will periodically check HAC in the background and alert you if you have any new grades.</p>
 
 						<div className="option">
 							<input type="checkbox" id="notif-enable" name="notif-enable"
@@ -81,11 +83,13 @@ var Options = (function (Options, undefined) {
 						</div>
 
 						<div className="option">
-							<h4>Notification interval</h4>
+							<h3>Notification interval</h3>
 							<p className="sub">How often should QuickHAC update grades from HAC?</p>
-							<input type="range" name="notif-interval" min="15" max="360" step="15"
-								value={this.state.notificationInterval} onChange={this.handleNotificationIntervalChange} />
-							<label>{this.state.notificationInterval}</label>
+							<div className="fullwidth">
+								<input type="range" name="notif-interval" min="15" max="360" step="15"
+									value={this.state.notificationInterval} onChange={this.handleNotificationIntervalChange} />
+								<label>Every {this.state.notificationInterval} minutes</label>
+							</div>
 						</div>
 					</div>
 				</div>)

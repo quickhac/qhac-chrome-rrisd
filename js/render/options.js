@@ -44,6 +44,7 @@ var Options = (function (Options, undefined) {
 				React.DOM.div({className: "wrapper"}, 
 					React.DOM.div({className: "panel"}, 
 						React.DOM.h2(null, "Student"), 
+						React.DOM.p({className: "sub"}, "QuickHAC can display grades for just you if you are a student, or every student if you are a parent."), 
 
 						React.DOM.div({className: "option"}, 
 							students.map((function (student) {
@@ -73,6 +74,7 @@ var Options = (function (Options, undefined) {
 
 					React.DOM.div({className: "panel"}, 
 						React.DOM.h2(null, "Notifications"), 
+						React.DOM.p({className: "sub"}, "QuickHAC will periodically check HAC in the background and alert you if you have any new grades."), 
 
 						React.DOM.div({className: "option"}, 
 							React.DOM.input({type: "checkbox", id: "notif-enable", name: "notif-enable", 
@@ -81,11 +83,13 @@ var Options = (function (Options, undefined) {
 						), 
 
 						React.DOM.div({className: "option"}, 
-							React.DOM.h4(null, "Notification interval"), 
+							React.DOM.h3(null, "Notification interval"), 
 							React.DOM.p({className: "sub"}, "How often should QuickHAC update grades from HAC?"), 
-							React.DOM.input({type: "range", name: "notif-interval", min: "15", max: "360", step: "15", 
-								value: this.state.notificationInterval, onChange: this.handleNotificationIntervalChange}), 
-							React.DOM.label(null, this.state.notificationInterval)
+							React.DOM.div({className: "fullwidth"}, 
+								React.DOM.input({type: "range", name: "notif-interval", min: "15", max: "360", step: "15", 
+									value: this.state.notificationInterval, onChange: this.handleNotificationIntervalChange}), 
+								React.DOM.label(null, "Every ", this.state.notificationInterval, " minutes")
+							)
 						)
 					)
 				))

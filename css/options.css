@@ -6,6 +6,8 @@ body {
 	margin: 32px;
 
 	background: #e0e0e0;
+
+	-webkit-user-select: none;
 }
 
 h1 {
@@ -42,9 +44,38 @@ h1 {
 }
 
 h2 {
-	margin-top: 0;
+	margin: 0;
 	font-size: 24px;
 	font-weight: 300;
+}
+
+h3 {
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+p {
+	margin: 8px 0;
+}
+
+.sub {
+	color: #888;
+	font-size: 14px;
+}
+
+.fullwidth {
+	display: flex;
+	justify-content: justify;
+	width: 100%;
+}
+
+.fullwidth input {
+	flex: 1 1;
+	margin-right: 16px;
+}
+
+.fullwidth label {
+	width: 140px;
 }
 
 #logo {
@@ -54,4 +85,14 @@ h2 {
 	margin: 0 auto;
 
 	opacity: 0.5;
+}
+
+footer {
+	width: 100%;
+	max-width: 360px;
+	margin: 0 auto;
+	color: #aaa;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 300;
 }
