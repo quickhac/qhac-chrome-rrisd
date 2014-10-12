@@ -2,7 +2,10 @@
 
 'use strict';
 
-// lol
+// Crypt is short for CRappY encryPTion. Not really, but that's basically what
+// this is: 2x Base64+ROT13. It's not by any means strong, but it should be
+// be enough to at least stall the average script kiddie in their quest to
+// get somebody's login information.
 var Crypt = (function (Crypt, undefined) {
 
 	function rot13 (str) {
@@ -23,6 +26,14 @@ var Crypt = (function (Crypt, undefined) {
 
 })(Crypt || {});
 
+// Store currently stores all user data in the extension's localStorage. To
+// access the Store from an injected script, you have to use the message passing
+// APIs defined in ../background.js. (See ../logon.js or ../header.js for
+// examples of message passing.) This is because the localStorage on those pages
+// with injected scripts will only be able to access the localStorage of the
+// site instead of the extension. Extenstion pages such as ../html/options.html
+// and ../html/background.html are able to import Store and access the storage
+// directly.
 var Store = (function (Store, undefined) {
 
 	var DEFAULT_OPTIONS = {
@@ -107,6 +118,15 @@ var Store = (function (Store, undefined) {
 
 	Store.getOptions = function () {
 		return localStorage.getItem('options') || DEFAULT_OPTIONS;
+	}
+
+	Store.logout = function () {
+		localStorage.setItem('state', '0');
+		localStorage.removeItem('credentials');
+		localStorage.removeItem('assignments');
+		localStorage.removeItem('students');
+		localStorage.removeItem('student');
+		localStorage.removeItem('accountName');
 	}
 	
 	return Store;

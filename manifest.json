@@ -32,6 +32,8 @@
 		"persistent": true
 	},
 
+	"options_page": "html/options.html",
+
 	"content_scripts": [
 		{
 			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Account/LogOn*"],

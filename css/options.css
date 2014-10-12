@@ -56,6 +56,8 @@ h3 {
 
 p {
 	margin: 8px 0;
+
+	font-family: 'Open Sans';
 }
 
 .sub {
@@ -76,6 +78,48 @@ p {
 
 .fullwidth label {
 	width: 140px;
+}
+
+.save-opts.hidden {
+	opacity: 0;
+	left: -8px;
+
+	cursor: default;
+}
+
+.save-opts {
+	float: right;
+	position: relative;
+	left: 0;
+	opacity: 1;
+
+	background: #e0e0e0;
+	border: none;
+	border-right: 2px solid #bbb;
+
+	font-family: 'Open Sans';
+	font-size: 16px;
+	font-weight: 300;
+
+	-webkit-transition: opacity 0.25s, left 0.25s ease-out, background 0.1s, color 0.1s;
+
+	cursor: pointer;
+}
+
+.save-opts:hover {
+	background: #336e7b;
+	color: #fff;
+}
+
+.logout {
+	display: block;
+	margin: 0 auto;
+
+	font-family: 'Open sans';
+	font-size: 18px;
+	font-weight: 300;
+	
+	cursor: pointer;
 }
 
 #logo {

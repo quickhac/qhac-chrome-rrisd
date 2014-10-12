@@ -5,14 +5,24 @@
 $(function () {
 	var options = Store.getOptions(),
 		students = Store.getStudents(),
-		student = Store.getStudent();
+		student = Store.getStudent(),
+		state = Store.getState();
 
-	React.renderComponent(Options.OptionForm({
-		students: students,
-		student: student,
-		notifications: options.notifications,
-		notificationInterval: options.notificationInterval
-	}), $('#settings').get(0));
+	// only show the settings if we have saved login data; otherwise, the
+	// settings are largely irrelevant.
+	if (state === '2' || state === '3') {
+		React.renderComponent(Options.OptionForm({
+			students: students,
+			student: student,
+			notifications: options.notifications,
+			notificationInterval: options.notificationInterval,
+			logout: function (e) {
+				Store.logout();
+				chrome.extension.sendMessage({type: 'logout'});
+				return false;
+			} // TODO: add save options handlers
+		}), $('#settings').get(0));
+	}
 
 	$('#version').text("QuickHAC version " + chrome.runtime.getManifest().version);
 })
