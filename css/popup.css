@@ -51,11 +51,11 @@ a {
 	text-decoration: none;
 	font-size: 14px;
 	cursor: pointer;
+	transition: background 100ms;
 }
 
 #header a:hover {
 	background: rgba(255,255,255,0.125);
-	text-decoration: underline;
 }
 
 #link-open-full {

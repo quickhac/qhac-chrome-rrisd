@@ -81,6 +81,7 @@ div, span, th, td, label, h1, h2, h3 {
 	text-transform: uppercase;
 	font-size: 12px;
 	font-weight: 600;
+	letter-spacing: 1px;
 	color: #aaa;
 }
 
