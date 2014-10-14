@@ -81,7 +81,7 @@ var Popup = (function (Popup, undefined) {
 									<tbody>
 										{assignments.map(function (asg) {
 											return (
-												<tr className="assignment">
+												<tr className="assignment" title={asg.course.name + ": " + asg.category.name}>
 													<td className="name">{asg.assignment.name}</td>
 													<td className="due">{RenderUtils.relativeDate(asg.assignment.date_due)}</td>
 													<td className="grade">

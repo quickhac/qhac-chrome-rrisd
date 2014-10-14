@@ -81,7 +81,7 @@ var Popup = (function (Popup, undefined) {
 									React.DOM.tbody(null, 
 										assignments.map(function (asg) {
 											return (
-												React.DOM.tr({className: "assignment"}, 
+												React.DOM.tr({className: "assignment", title: asg.course.name + ": " + asg.category.name}, 
 													React.DOM.td({className: "name"}, asg.assignment.name), 
 													React.DOM.td({className: "due"}, RenderUtils.relativeDate(asg.assignment.date_due)), 
 													React.DOM.td({className: "grade"}, 
