@@ -8,7 +8,11 @@ var StudentPicker = (function (StudentPicker, undefined) {
 	var Student = StudentPicker.Student = React.createClass({
 		displayName: 'Student',
 		submit: function () {
-			this.props.submitFn(this.props.student);
+			var student = this.props.student;
+			if (student.studentId === 'all')
+				this.props.submitFn({name: '$All', studentId: 'all'});
+			else
+				this.props.submitFn(this.props.student);
 		},
 		render: function () {
 			return (
@@ -33,7 +37,7 @@ var StudentPicker = (function (StudentPicker, undefined) {
 								<Student submitFn={submitFn} student={student} />
 							)
 						})}
-						<Student submitFn={submitFn} student={{name: '$All', studentId: "all"}} />
+						<Student submitFn={submitFn} student={{name: 'All', studentId: "all"}} />
 					</div>
 				</div>
 			)

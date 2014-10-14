@@ -32,6 +32,8 @@ var ParseUtils = (function(ParseUtils, undefined) {
 	 	return Date.UTC(parseInt(matches[3]), parseInt(matches[1]) - 1, parseInt(matches[2]));
 	 }
 
+	 ParseUtils.strTrim = function (string) { return string.trim(); }
+
 	/**
 	 * Creates an object from parallel key and value arrays.
 	 * keys {string[]}
@@ -112,7 +114,7 @@ var Parser = (function(Parser, undefined) {
 	Parser.ASSIGNMENT_TABLE_PARSE_FUNCS = [
 		['date_due', ParseUtils.parseDate],
 		['date_assigned', ParseUtils.parseDate],
-		['name', null],
+		['name', ParseUtils.strTrim],
 		['category', null],
 		['score', ParseUtils.parseMaybeFloat],
 		['total_points', ParseUtils.parseMaybeFloat],

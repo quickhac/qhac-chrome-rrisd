@@ -70,7 +70,7 @@ $(function() {
 				chrome.extension.sendMessage({type: 'storeSet', method: 'setState', data: ['3']});
 				chrome.extension.sendMessage({type: 'storeSet', method: 'setStudents', data: [[]]});
 				chrome.extension.sendMessage({type: 'storeSet', method: 'setStudent', data: [
-					{name: RetrieveUtils.getSelectedStudent(document.body), studentId: 'none'}]});
+					{name: RetrieveUtils.getSelectedStudent(document.body), studentId: 'default'}]});
 			}
 		}
 
@@ -81,6 +81,10 @@ $(function() {
 			chrome.extension.sendMessage({type: 'storeGet', method: 'getAccountName'}, function (name) {
 				if (name === accountName) {
 					chrome.extension.sendMessage({type: 'declareLoggedIn'});
+					// declare the currently logged in student name if we are
+					// logged into the right account
+					chrome.extension.sendMessage({type: 'declareLoggedInStudentName',
+						data: RetrieveUtils.getSelectedStudent(document.body)});
 				} else {
 					chrome.extension.sendMessage({type: 'declareLoggedOut'});
 				}	
@@ -100,6 +104,39 @@ $(function() {
 		}, 200);
 	}
 
+	// make sure background updates don't interfere with the user's session
 	chrome.extension.sendMessage({type: 'delayUpdate'});
 	
 });
+
+// let an iframe on the page save the assignment data to Store through this page;
+// we need to get the id of the student by parsing this page before we can know
+// where to save the assignments
+// The assignment data can only be saved once per page load, since the user may
+// navigate to different marking periods after loading the page, but we don't
+// necessarily want to store all of that information.
+var saveAssignmentData = (function () {
+	var callback = function (assignments, markingPeriod) {
+		var hasPicker = RetrieveUtils.hasPicker(document.body),
+			selectedStudent = RetrieveUtils.getSelectedStudent(document.body);
+
+		// if there are multiple students under the logged in account, we need to find the right
+		// student ID to save the assignment under
+		if (hasPicker) {
+			chrome.extension.sendMessage({type: 'storeGet', method: 'getStudents'}, function (students) {
+				var studentId = students.filter(function (s) { return s.name === selectedStudent; })[0].studentId;
+				chrome.extension.sendMessage({type: 'storeSet', method: 'setAssignments',
+					data: [assignments, markingPeriod, studentId]});
+			});
+		} else {
+			chrome.extension.sendMessage({type: 'storeSet', method: 'setAssignments',
+				data: [assignments, markingPeriod, 'default']});
+		}
+
+		callback = function () {}
+	}
+
+	return function (assignments, markingPeriod) {
+		callback(assignments, markingPeriod);
+	}
+})();

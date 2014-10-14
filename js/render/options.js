@@ -61,37 +61,43 @@ var Options = (function (Options, undefined) {
 
 			return (
 				React.DOM.div({className: "wrapper"}, 
-					React.DOM.div({className: "panel"}, 
-						React.DOM.button({className: "save-opts" + (this.state.studentOptsChanged ? "" : " hidden"), 
-							onClick: this.handleSaveStudentOpts}, "Save"), 
-						React.DOM.h2(null, "Student"), 
-						React.DOM.p({className: "sub"}, "QuickHAC can display grades for just you if you are a student, or every student if you are a parent."), 
+					(function () {
+						if (students.length) {
+							return (
+								React.DOM.div({className: "panel"}, 
+									React.DOM.button({className: "save-opts" + (this.state.studentOptsChanged ? "" : " hidden"), 
+										onClick: this.handleSaveStudentOpts}, "Save"), 
+									React.DOM.h2(null, "Student"), 
+									React.DOM.p({className: "sub"}, "QuickHAC can display grades for just you if you are a student, or every student if you are a parent."), 
 
-						React.DOM.div({className: "option"}, 
-							students.map((function (student) {
-								return (
-									React.DOM.div(null, 
-										React.DOM.input({type: "radio", value: student.studentId, 
-											id: "opt-student-" + student.studentId, 
-											name: "opt-student", 
-											key: "opt-student-" + student.studentId, 
-											ref: "student- " + student.studentId, 
-											checked: this.state.student.name === student.name, 
-											onChange: this.handleStudentSelect}), 
-										React.DOM.label({htmlFor: "opt-student-" + student.studentId}, student.name)
-									));
-							}).bind(this)), 
-							React.DOM.div(null, 
-								React.DOM.input({type: "radio", value: "all", 
-									id: "opt-student-all", 
-									name: "opt-student", 
-									ref: "student-all", 
-									checked: this.state.student.name === '$All', 
-									onChange: this.handleStudentSelect}), 
-								React.DOM.label({htmlFor: "opt-student-all"}, "All")
+									React.DOM.div({className: "option"}, 
+										students.map((function (student) {
+											return (
+												React.DOM.div(null, 
+													React.DOM.input({type: "radio", value: student.studentId, 
+														id: "opt-student-" + student.studentId, 
+														name: "opt-student", 
+														key: "opt-student-" + student.studentId, 
+														ref: "student- " + student.studentId, 
+														checked: this.state.student.name === student.name, 
+														onChange: this.handleStudentSelect}), 
+													React.DOM.label({htmlFor: "opt-student-" + student.studentId}, student.name)
+												));
+										}).bind(this)), 
+										React.DOM.div(null, 
+											React.DOM.input({type: "radio", value: "all", 
+												id: "opt-student-all", 
+												name: "opt-student", 
+												ref: "student-all", 
+												checked: this.state.student.name === '$All', 
+												onChange: this.handleStudentSelect}), 
+											React.DOM.label({htmlFor: "opt-student-all"}, "All")
+										)
+									)
+								)
 							)
-						)
-					), 
+						} else return null;
+					}).bind(this)(), 
 
 					React.DOM.div({className: "panel"}, 
 						React.DOM.button({className: "save-opts" + (this.state.notifOptsChanged ? "" : " hidden"), 

@@ -96,12 +96,17 @@ var Store = (function (Store, undefined) {
 		return JSON.parse(localStorage.getItem('student'));
 	}
 
-	Store.setAssignments = function (data) {
-		localStorage.setItem('assignments', JSON.stringify(data));
+	Store.setAssignments = function (data, markingPeriod, studentId) {
+		localStorage.setItem('assignments-' + studentId, JSON.stringify(data));
+		localStorage.setItem('markingPeriod-' + studentId, markingPeriod);
 	}
 
-	Store.getAssignments = function () {
-		return localStorage.getItem('assignments');
+	Store.getAssignments = function (studentId) {
+		return JSON.parse(localStorage.getItem('assignments-' + studentId));
+	}
+
+	Store.getMarkingPeriod = function (studentId) {
+		return localStorage.getItem('markingPeriod-' + studentId);
 	}
 
 	Store.setState = function (state) {

@@ -16,6 +16,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 			Retrieve.declareLoggedOut();
 			sendResponse(true);
 			break;
+		// usage: { type: 'declareLoggedInStudentName', data: {string}}
+		// returns: true
+		case 'declareLoggedInStudentName':
+			Retrieve.declareLoggedInStudentName(request.data);
+			sendResponse(true);
+			break;
 		// usage: { type: 'delayUpdate' }
 		// returns: true
 		// If the extension is about to do a background update within the next
@@ -42,16 +48,23 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 			Store[request.method].apply(null, request.data);
 			sendResponse(true);
 			break;
+		// usage: { type: 'createTab', url: {string}}
+		// Opens a new tab to the specified URL. This is useful because injected
+		// scripts cannot access the chrome.tabs API.
+		case 'createTab':
+			chrome.tabs.create({url: chrome.extension.getURL(request.url)});
+			sendResponse(true);
+			break;
 		// usage: { type: 'logout' }
 		// Deletes all stored user information from Store and the current
 		// QuickHAC background state.
+		// returns: true
 		case 'logout':
 			Retrieve.declareLoggedOut();
 			Retrieve.setCredentials(undefined, undefined);
 			sendResponse(true);
 			break;
-		// If the message type requested is not implemented, return false.
+		// If the message type requested is not implemented, don't return anything.
 		default:
-			sendResponse(false);
 	}
 });

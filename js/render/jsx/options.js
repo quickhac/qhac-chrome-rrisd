@@ -61,37 +61,43 @@ var Options = (function (Options, undefined) {
 
 			return (
 				<div className="wrapper">
-					<div className="panel">
-						<button className={"save-opts" + (this.state.studentOptsChanged ? "" : " hidden")}
-							onClick={this.handleSaveStudentOpts}>Save</button>
-						<h2>Student</h2>
-						<p className="sub">QuickHAC can display grades for just you if you are a student, or every student if you are a parent.</p>
+					{(function () {
+						if (students.length) {
+							return (
+								<div className="panel">
+									<button className={"save-opts" + (this.state.studentOptsChanged ? "" : " hidden")}
+										onClick={this.handleSaveStudentOpts}>Save</button>
+									<h2>Student</h2>
+									<p className="sub">QuickHAC can display grades for just you if you are a student, or every student if you are a parent.</p>
 
-						<div className="option">
-							{students.map((function (student) {
-								return (
-									<div>
-										<input type="radio" value={student.studentId}
-											id={"opt-student-" + student.studentId}
-											name={"opt-student"}
-											key={"opt-student-" + student.studentId}
-											ref={"student- " + student.studentId}
-											checked={this.state.student.name === student.name}
-											onChange={this.handleStudentSelect} />
-										<label htmlFor={"opt-student-" + student.studentId}>{student.name}</label>
-									</div>);
-							}).bind(this))}
-							<div>
-								<input type="radio" value="all"
-									id={"opt-student-all"}
-									name={"opt-student"}
-									ref={"student-all"}
-									checked={this.state.student.name === '$All'}
-									onChange={this.handleStudentSelect} />
-								<label htmlFor="opt-student-all">All</label>
-							</div>
-						</div>
-					</div>
+									<div className="option">
+										{students.map((function (student) {
+											return (
+												<div>
+													<input type="radio" value={student.studentId}
+														id={"opt-student-" + student.studentId}
+														name={"opt-student"}
+														key={"opt-student-" + student.studentId}
+														ref={"student- " + student.studentId}
+														checked={this.state.student.name === student.name}
+														onChange={this.handleStudentSelect} />
+													<label htmlFor={"opt-student-" + student.studentId}>{student.name}</label>
+												</div>);
+										}).bind(this))}
+										<div>
+											<input type="radio" value="all"
+												id={"opt-student-all"}
+												name={"opt-student"}
+												ref={"student-all"}
+												checked={this.state.student.name === '$All'}
+												onChange={this.handleStudentSelect} />
+											<label htmlFor="opt-student-all">All</label>
+										</div>
+									</div>
+								</div>
+							)
+						} else return null;
+					}).bind(this)()}
 
 					<div className="panel">
 						<button className={"save-opts" + (this.state.notifOptsChanged ? "" : " hidden")}

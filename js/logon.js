@@ -27,9 +27,10 @@ $(function() {
 			'<label for="qhac-save">Save information in QuickHAC</label>' +
 		'</div>');
 
-	// add 'Log in to $ACCOUNT' if logged in
+	// UI elements to add only if logged in to QuickHAC
 	chrome.extension.sendMessage({type: 'storeGet', method: 'getState'}, function (state) {
 		if (parseInt(state) >= 2) {
+			// add 'Log in to $ACCOUNT' button
 			chrome.extension.sendMessage({type: 'storeGet', method: 'getCredentials'}, function (credentials) {
 				$('.sg-logon-button').after(
 					$('<button class="sg-button sg-logon-button q-logon">' +
@@ -44,6 +45,13 @@ $(function() {
 					})
 				)
 			})
+
+			// add link to options page
+			$('.sg-logon-button').next().append(
+				$('<a href="#">QuickHAC Options</a>').click(function () {
+					chrome.extension.sendMessage({type: 'createTab', url: 'html/options.html'});
+				})
+			)
 		}
 	})
 	

@@ -32,6 +32,14 @@
 		"persistent": true
 	},
 
+	"browser_action": {
+		"default_icon": {
+			"38": "assets/icon38.png"
+		},
+		"default_title": "QuickHAC",
+		"default_popup": "html/popup.html"
+	},
+
 	"options_page": "html/options.html",
 
 	"content_scripts": [
@@ -65,12 +73,13 @@
 		},
 		{
 			"matches": ["https://accesscenter.roundrockisd.org/HomeAccess/Content/Student/Assignments.aspx*"],
-			"css": ["css/open-sans.css", "css/assignments.css"],
+			"css": ["css/open-sans.css", "css/assignments.css", "css/courseview.css"],
 			"js": ["js/vendor/jquery.js",
 			       "js/vendor/moment.js",
 			       "js/vendor/react.js",
 			       "js/parse/parse.js",
 			       "js/render/utils.js",
+			       "js/render/courseview.js",
 			       "js/render/render.js",
 			       "js/assignments.js"],
 			"all_frames": true

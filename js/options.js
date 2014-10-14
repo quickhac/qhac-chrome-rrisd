@@ -19,6 +19,7 @@ $(function () {
 			logout: function (e) {
 				Store.logout();
 				chrome.extension.sendMessage({type: 'logout'});
+				location.reload(); // unshow options by reloading
 				return false;
 			} // TODO: add save options handlers
 		}), $('#settings').get(0));

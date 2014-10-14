@@ -29,6 +29,8 @@ var Retrieve = (function (Retrieve, undefined) {
 		'https://accesscenter.roundrockisd.org/HomeAccess/Content/Student/Assignments.aspx';
 	Retrieve.STUDENT_PICKER_URL =
 		'https://accesscenter.roundrockisd.org/HomeAccess/Frame/StudentPicker';
+	Retrieve.HOME_VIEW_URL =
+		'/HomeAccess/Classes/Classwork';
 	Retrieve.SESSION_TIMEOUT = 9 * 60 * 1000; // 9 minutes * 60 sec/min * 1000 ms/s
 
 
@@ -72,10 +74,11 @@ var Retrieve = (function (Retrieve, undefined) {
 				lastSuccessfulRequestTime = +new Date;
 				username = u;
 				password = p;
+				student = RetrieveUtils.getSelectedStudent(doc);
 				var doc = RetrieveUtils.parseDoc(data);
 				resolve({
 					hasPicker: RetrieveUtils.hasPicker(doc),
-					selectedStudent: RetrieveUtils.getSelectedStudent(doc)
+					selectedStudent: student
 				});
 			}).fail(reject);
 		});
@@ -150,12 +153,42 @@ var Retrieve = (function (Retrieve, undefined) {
 		})
 	}
 
+	/**
+	 * Selects a student via the student picker by student object
+	 */
+	Retrieve.selectStudent = function (s) {
+		return new Promise(function (resolve, reject) {
+			ensureLoggedIn().then(get, reject);
+
+			function get () {
+				$.ajax(Retrieve.STUDENT_PICKER_URL, {
+					type: 'POST',
+					data: {
+						'studentId': s.studentId,
+						'url': Retrieve.HOME_VIEW_URL}})
+					.done(function (data) {
+						if (!Validate.postLogin(data)) {
+							reject(new Error('Invalid page'));
+							return;
+						}
+
+						student = s.name;
+						resolve();
+					}).fail(reject);
+			}
+		})
+	}
+
 	Retrieve.declareLoggedOut = function () {
 		lastSuccessfulRequestTime = 0;
 	}
 
 	Retrieve.declareLoggedIn = function () {
 		lastSuccessfulRequestTime = +new Date;
+	}
+
+	Retrieve.declareLoggedInStudentName = function (name) {
+		student = name;
 	}
 
 	return Retrieve;

@@ -1,0 +1,146 @@
+html, body {
+	display: flex;
+	flex-direction: column;
+	justify-content: justify;
+	height: 360px;
+	width: 600px;
+	margin: 0;
+
+	font-family: 'Open Sans';
+}
+
+/* header */
+
+#header {
+	display: flex;
+	width: 100%;
+	height: 42px;
+
+	background: #336e7b;
+	-webkit-user-select: none;
+}
+
+#logo {
+	width: 36px;
+	height: 36px;
+	margin: 4px 0 2px 0;
+}
+
+#appname, #header a {
+	display: block;
+	color: #fff;
+	font-weight: 300;
+}
+
+#appname {
+	flex: 1 1;
+	margin: 9px 4px 0 0;
+	font-size: 18px;
+}
+
+#appname b {
+	font-weight: 600;
+}
+
+#header a {
+	padding: 12px 8px 0 8px;
+	text-decoration: none;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+#header a:hover {
+	background: rgba(255,255,255,0.125);
+	text-decoration: underline;
+}
+
+#link-open-full {
+	margin-right: 8px;
+}
+
+/* content */
+
+#content {
+	flex: 1 1;
+	display: flex;
+	justify-content: justify;
+	width: 100%;
+}
+
+/* sidebar */
+
+#sidebar, #main {
+	overflow: scroll;
+}
+
+#sidebar {
+	width: 200px;
+	padding: 8px 0;
+	background: #444;
+	color: #fff;
+	font-weight: 300;
+	user-select: none;
+}
+
+#sidebar h2 {
+	margin: 8px 0 4px 0;
+	color: #aaa;
+
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 1px;
+}
+
+#sidebar .recent-select, #sidebar .course-select {
+	box-sizing: border-box;
+	display: flex;
+	justify-content: justify;
+	width: 100%;
+	padding: 4px 8px;
+
+	font-size: 13px;
+
+	cursor: pointer;
+}
+
+#sidebar .recent-select:hover, #sidebar .course-select:hover, #sidebar .selected {
+	background: rgba(255,255,255,0.125);
+}
+
+#sidebar .course-select .name {
+	flex: 1 1;
+}
+
+#sidebar .course-select .grade {
+	font-weight: 600;
+}
+
+/* main */
+#main {
+	width: 400px;
+	padding: 0 24px;
+	background: #e8e8e8;
+}
+
+.course-view > .header {
+	margin-top: 24px;
+}
+
+.course-view > .category {
+	padding: 16px;
+}
+
+.category th {
+	font-size: 10px;
+}
+
+.category .weight {
+	margin-top: 2px;
+	font-size: 16px;
+}
+
+.assignment {
+	font-weight: 400;
+}
