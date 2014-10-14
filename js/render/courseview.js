@@ -143,7 +143,7 @@ var CourseView = (function (CourseView, undefined) {
 				// default to normal behavior
 				switch (key) {
 					case 's':
-						return 'a few seconds';
+						return 'seconds';
 					case 'm':
 						return 'a minute';
 					case 'mm':
