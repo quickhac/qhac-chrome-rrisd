@@ -128,13 +128,23 @@ var saveAssignmentData = (function () {
 		assignments = asgs;
 		markingPeriod = mp;
 		dataLoaded = true;
-		if (readyToSave) readyToSaveAssignmentData();
+		if (readyToSave)
+			readyToSaveAssignmentData();
 		callback = function () {}
 	}
 
+	// If when we started loading this page, we were at state 2, we would have
+	// to load the student picker before we can get the student ID of the student
+	// whose grades we want to save. (This is required to identify the grades
+	// inside localStorage.) Thus, to avoid a race condition where we cannot
+	// save the assignment data due to the student picker not having been loaded,
+	// we need to make a second callback that is called after page load when we
+	// can ensure that the student list will be in Store. When both callbacks
+	// have been called, we can save our assignment data.
 	window.readyToSaveAssignmentData = function () {
+		if (!dataLoaded)
+			return;
 		readyToSave = true;
-		if (!dataLoaded) return;
 
 		var hasPicker = RetrieveUtils.hasPicker(document.body),
 			selectedStudent = RetrieveUtils.getSelectedStudent(document.body);
@@ -151,6 +161,8 @@ var saveAssignmentData = (function () {
 			chrome.extension.sendMessage({type: 'storeSet', method: 'setAssignments',
 				data: [assignments, markingPeriod, 'default']});
 		}
+
+		window.readyToSaveAssignmentData = function () {}
 	}
 
 	return function (assignments, markingPeriod) {
