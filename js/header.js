@@ -142,9 +142,9 @@ var saveAssignmentData = (function () {
 	// can ensure that the student list will be in Store. When both callbacks
 	// have been called, we can save our assignment data.
 	window.readyToSaveAssignmentData = function () {
+		readyToSave = true;
 		if (!dataLoaded)
 			return;
-		readyToSave = true;
 
 		var hasPicker = RetrieveUtils.hasPicker(document.body),
 			selectedStudent = RetrieveUtils.getSelectedStudent(document.body);
