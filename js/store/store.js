@@ -37,7 +37,6 @@ var Crypt = (function (Crypt, undefined) {
 var Store = (function (Store, undefined) {
 
 	var DEFAULT_OPTIONS = {
-		student: [],
 		notifications: true,
 		notificationInterval: 60
 	};
@@ -99,6 +98,7 @@ var Store = (function (Store, undefined) {
 	Store.setAssignments = function (data, markingPeriod, studentId) {
 		localStorage.setItem('assignments-' + studentId, JSON.stringify(data));
 		localStorage.setItem('markingPeriod-' + studentId, markingPeriod);
+		localStorage.setItem('lastUpdated-' + studentId, +new Date);
 	}
 
 	Store.getAssignments = function (studentId) {
@@ -107,6 +107,10 @@ var Store = (function (Store, undefined) {
 
 	Store.getMarkingPeriod = function (studentId) {
 		return localStorage.getItem('markingPeriod-' + studentId);
+	}
+
+	Store.getLastUpdated = function (studentId) {
+		return localStorage.getItem('lastUpdated-' + studentId);
 	}
 
 	Store.setState = function (state) {
@@ -121,17 +125,21 @@ var Store = (function (Store, undefined) {
 		localStorage.setItem('options', JSON.stringify(options));
 	}
 
+	Store.setOptionProp = function () {
+		var opts = Store.getOptions();
+		[].slice.call(arguments).forEach(function (kv) {
+			opts[kv[0]] = kv[1];
+		});
+		Store.setOptions(opts);
+	}
+
 	Store.getOptions = function () {
-		return localStorage.getItem('options') || DEFAULT_OPTIONS;
+		var storedOpts = localStorage.getItem('options');
+		return JSON.parse(storedOpts) || DEFAULT_OPTIONS;
 	}
 
 	Store.logout = function () {
-		localStorage.setItem('state', '0');
-		localStorage.removeItem('credentials');
-		localStorage.removeItem('assignments');
-		localStorage.removeItem('students');
-		localStorage.removeItem('student');
-		localStorage.removeItem('accountName');
+		localStorage.clear(); // ah screw it there are too many things
 	}
 	
 	return Store;

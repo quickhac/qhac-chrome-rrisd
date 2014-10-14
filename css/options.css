@@ -65,6 +65,10 @@ p {
 	font-size: 14px;
 }
 
+label {
+	font-size: 14px;
+}
+
 .fullwidth {
 	display: flex;
 	justify-content: justify;

@@ -15,6 +15,7 @@ var Popup = (function (Popup, undefined) {
 		var studentAsgArr = students.map(function (student) {
 			var asgArr = [];
 			asgArr.student = student;
+			if (student.assignments == null) return asgArr;
 			student.assignments.forEach(function (course) {
 				course.categories.forEach(function (category) {
 					category.assignments.forEach(function (asg) {
@@ -46,6 +47,7 @@ var Popup = (function (Popup, undefined) {
 	//         studentId {string}
 	//         markingPeriod {string or number}
 	//         assignments {array}
+	//         lastUpdated (number)
 	//     The wa to do this is to extend the students object from Store.getStudent()/.getStudents().
 	// These properties need to be passed to both Sidebar and Recents.
 
@@ -58,8 +60,7 @@ var Popup = (function (Popup, undefined) {
 				React.DOM.div({className: "recents course-view"}, 
 					React.DOM.div({className: "header"}, 
 						React.DOM.div({className: "vert"}, 
-							React.DOM.h1(null, "Recent Grades"), 
-							React.DOM.div({className: "updated"}, "Last updated (time here)")
+							React.DOM.h1(null, "Recent Grades")
 						)
 					), 
 					studentAsgs.map(function (assignments) {
@@ -68,6 +69,7 @@ var Popup = (function (Popup, undefined) {
 								React.DOM.div({className: "card-title"}, 
 									React.DOM.h2(null, assignments.student.name)
 								), 
+								React.DOM.div({className: "updated"}, React.DOM.span(null, RenderUtils.relativeDate(parseInt(assignments.student.lastUpdated), 'Updated ', '', true))), 
 								React.DOM.table({className: "assignments"}, 
 									React.DOM.thead(null, 
 										React.DOM.tr(null, 
@@ -79,10 +81,13 @@ var Popup = (function (Popup, undefined) {
 									React.DOM.tbody(null, 
 										assignments.map(function (asg) {
 											return (
-												React.DOM.tr(null, 
-													React.DOM.td(null, asg.assignment.name), 
-													React.DOM.td(null, RenderUtils.relativeDate(asg.assignment.date_due)), 
-													React.DOM.td(null, asg.assignment.score)
+												React.DOM.tr({className: "assignment"}, 
+													React.DOM.td({className: "name"}, asg.assignment.name), 
+													React.DOM.td({className: "due"}, RenderUtils.relativeDate(asg.assignment.date_due)), 
+													React.DOM.td({className: "grade"}, 
+														React.DOM.span({className: "score"}, RenderUtils.showMaybeNum(asg.assignment.score)), 
+														React.DOM.span({className: "aside"}, CourseView.showScoreAside(asg))
+													)
 												)
 											)
 										})
@@ -137,10 +142,11 @@ var Popup = (function (Popup, undefined) {
 						"Recent Grades"
 					), 
 					students.map((function (student) {
+						assignments = student.assignments || [];
 						return (
 							React.DOM.div({className: "student-section"}, 
 								React.DOM.h2(null, student.name), 
-								student.assignments.map((function (course) {
+								assignments.map((function (course) {
 									return (
 										React.DOM.div({className: "course-select" + (currMainView === course ? " selected" : ""), 
 												onClick: this.renderCourseView(course).bind(this)}, 

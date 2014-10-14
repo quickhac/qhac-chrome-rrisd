@@ -26,7 +26,8 @@ onPageLoad(function () {
 			name: student.name,
 			studentId: student.studentId,
 			markingPeriod: Store.getMarkingPeriod(student.studentId),
-			assignments: Store.getAssignments(student.studentId)
+			assignments: Store.getAssignments(student.studentId),
+			lastUpdated: Store.getLastUpdated(student.studentId)
 		}
 	}
 
@@ -40,16 +41,6 @@ onPageLoad(function () {
 	} else {
 		students = [extendStudent(storedStudent)];
 	}
-
-	// If none of the students have any grade data associated with them, don't
-	// bother displaying anything.
-	for (var i = 0; i < students.length; i++) {
-		if (students[i].assignments != null)
-			break;
-	}
-
-	if (i === students.length)
-		return;
 
 	// Render the sidebar and the recents view
 	React.renderComponent(Popup.Sidebar({

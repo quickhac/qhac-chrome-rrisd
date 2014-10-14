@@ -50,7 +50,9 @@ $(function() {
 				Retrieve.studentPicker().then(function (students) {
 					// save data
 					chrome.extension.sendMessage({type: 'declareLoggedIn'});
-					chrome.extension.sendMessage({type: 'storeSet', method: 'setStudents', data: [students]});
+					chrome.extension.sendMessage({type: 'storeSet', method: 'setStudents', data: [students]}, function () {
+						readyToSaveAssignmentData();
+					});
 
 					// render the student picker
 					React.renderComponent(StudentPicker.Picker({
@@ -71,6 +73,7 @@ $(function() {
 				chrome.extension.sendMessage({type: 'storeSet', method: 'setStudents', data: [[]]});
 				chrome.extension.sendMessage({type: 'storeSet', method: 'setStudent', data: [
 					{name: RetrieveUtils.getSelectedStudent(document.body), studentId: 'default'}]});
+				readyToSaveAssignmentData();
 			}
 		}
 
@@ -80,6 +83,7 @@ $(function() {
 			// only declare that the user is logged in if the account name matches what's in Store
 			chrome.extension.sendMessage({type: 'storeGet', method: 'getAccountName'}, function (name) {
 				if (name === accountName) {
+					readyToSaveAssignmentData();
 					chrome.extension.sendMessage({type: 'declareLoggedIn'});
 					// declare the currently logged in student name if we are
 					// logged into the right account
@@ -116,7 +120,22 @@ $(function() {
 // navigate to different marking periods after loading the page, but we don't
 // necessarily want to store all of that information.
 var saveAssignmentData = (function () {
-	var callback = function (assignments, markingPeriod) {
+	var assignments, markingPeriod,
+		dataLoaded = false,
+		readyToSave = false;
+
+	var callback = function (asgs, mp) {
+		assignments = asgs;
+		markingPeriod = mp;
+		dataLoaded = true;
+		if (readyToSave) readyToSaveAssignmentData();
+		callback = function () {}
+	}
+
+	window.readyToSaveAssignmentData = function () {
+		readyToSave = true;
+		if (!dataLoaded) return;
+
 		var hasPicker = RetrieveUtils.hasPicker(document.body),
 			selectedStudent = RetrieveUtils.getSelectedStudent(document.body);
 
@@ -132,8 +151,6 @@ var saveAssignmentData = (function () {
 			chrome.extension.sendMessage({type: 'storeSet', method: 'setAssignments',
 				data: [assignments, markingPeriod, 'default']});
 		}
-
-		callback = function () {}
 	}
 
 	return function (assignments, markingPeriod) {

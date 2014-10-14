@@ -16,11 +16,16 @@ var RenderUtils = (function (RenderUtils, undefined) {
 	 * Converts a date in the format of milliseconds since 1970 to a date relative
 	 * to the current date.
 	 */
-	RenderUtils.relativeDate = function (ms, prefix, suffix) {
+	RenderUtils.relativeDate = function (ms, prefix, suffix, withSuffix) {
 		if (ms === undefined || ms === null || !ms) return '';
 		prefix = prefix || '';
 		suffix = suffix || '';
-		return prefix + moment(RenderUtils.dateToYMDArray(ms)).fromNow(true) + suffix;
+
+		if (withSuffix) {
+			return prefix + moment(ms).fromNow() + suffix
+		} else {
+			return prefix + moment(RenderUtils.dateToYMDArray(ms)).fromNow(true) + suffix;
+		}
 	}
 
 	/**

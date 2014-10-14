@@ -21,7 +21,15 @@ $(function () {
 				chrome.extension.sendMessage({type: 'logout'});
 				location.reload(); // unshow options by reloading
 				return false;
-			} // TODO: add save options handlers
+			},
+			saveStudentOpts: function (options) {
+				Store.setStudent(options.student);
+			},
+			saveNotifOpts: function (options) {
+				Store.setOptionProp(
+					['notifications', options.notifications],
+					['notificationInterval', options.notificationInterval]);
+			}
 		}), $('#settings').get(0));
 	}
 

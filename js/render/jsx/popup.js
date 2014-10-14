@@ -15,6 +15,7 @@ var Popup = (function (Popup, undefined) {
 		var studentAsgArr = students.map(function (student) {
 			var asgArr = [];
 			asgArr.student = student;
+			if (student.assignments == null) return asgArr;
 			student.assignments.forEach(function (course) {
 				course.categories.forEach(function (category) {
 					category.assignments.forEach(function (asg) {
@@ -46,6 +47,7 @@ var Popup = (function (Popup, undefined) {
 	//         studentId {string}
 	//         markingPeriod {string or number}
 	//         assignments {array}
+	//         lastUpdated (number)
 	//     The wa to do this is to extend the students object from Store.getStudent()/.getStudents().
 	// These properties need to be passed to both Sidebar and Recents.
 
@@ -59,7 +61,6 @@ var Popup = (function (Popup, undefined) {
 					<div className="header">
 						<div className="vert">
 							<h1>Recent Grades</h1>
-							<div className="updated">Last updated (time here)</div>
 						</div>
 					</div>
 					{studentAsgs.map(function (assignments) {
@@ -68,6 +69,7 @@ var Popup = (function (Popup, undefined) {
 								<div className="card-title">
 									<h2>{assignments.student.name}</h2>
 								</div>
+								<div className="updated"><span>{RenderUtils.relativeDate(parseInt(assignments.student.lastUpdated), 'Updated ', '', true)}</span></div>
 								<table className="assignments">
 									<thead>
 										<tr>
@@ -79,10 +81,13 @@ var Popup = (function (Popup, undefined) {
 									<tbody>
 										{assignments.map(function (asg) {
 											return (
-												<tr>
-													<td>{asg.assignment.name}</td>
-													<td>{RenderUtils.relativeDate(asg.assignment.date_due)}</td>
-													<td>{asg.assignment.score}</td>
+												<tr className="assignment">
+													<td className="name">{asg.assignment.name}</td>
+													<td className="due">{RenderUtils.relativeDate(asg.assignment.date_due)}</td>
+													<td className="grade">
+														<span className="score">{RenderUtils.showMaybeNum(asg.assignment.score)}</span>
+														<span className="aside">{CourseView.showScoreAside(asg)}</span>
+													</td>
 												</tr>
 											)
 										})}
@@ -137,10 +142,11 @@ var Popup = (function (Popup, undefined) {
 						Recent Grades
 					</div>
 					{students.map((function (student) {
+						assignments = student.assignments || [];
 						return (
 							<div className="student-section">
 								<h2>{student.name}</h2>
-								{student.assignments.map((function (course) {
+								{assignments.map((function (course) {
 									return (
 										<div className={"course-select" + (currMainView === course ? " selected" : "")}
 												onClick={this.renderCourseView(course).bind(this)}>

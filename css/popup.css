@@ -7,6 +7,11 @@ html, body {
 	margin: 0;
 
 	font-family: 'Open Sans';
+	-webkit-user-select: none;
+}
+
+a {
+	outline: none; /* gets rid of the annoying blue glow around the focused element */
 }
 
 /* header */
@@ -17,7 +22,6 @@ html, body {
 	height: 42px;
 
 	background: #336e7b;
-	-webkit-user-select: none;
 }
 
 #logo {
@@ -103,6 +107,8 @@ html, body {
 	font-size: 13px;
 
 	cursor: pointer;
+
+	transition: background 100ms;
 }
 
 #sidebar .recent-select:hover, #sidebar .course-select:hover, #sidebar .selected {
@@ -121,7 +127,19 @@ html, body {
 #main {
 	width: 400px;
 	padding: 0 24px;
-	background: #e8e8e8;
+	background: #f8f8f8;
+}
+
+#main .notice {
+	font-size: 14px;
+}
+
+.recents .vert h1 {
+	margin-bottom: -14px;
+}
+
+.recents .updated {
+	color: #aaa;
 }
 
 .course-view > .header {
@@ -139,6 +157,10 @@ html, body {
 .category .weight {
 	margin-top: 2px;
 	font-size: 16px;
+}
+
+.category .average {
+	font-size: 1.5em;
 }
 
 .assignment {

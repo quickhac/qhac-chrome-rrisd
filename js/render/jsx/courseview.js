@@ -1,9 +1,9 @@
 /** @jsx React.DOM */
-// dependencies: React, RenderUtils
+// dependencies: React, RenderUtils, Moment
 
 var CourseView = (function (CourseView, undefined) {
 
-	function showScoreAside(asg) {
+	var showScoreAside = CourseView.showScoreAside = function (asg) {
 		var max_pts = asg.total_points,
 			weight = asg.weight,
 			asides = [''];
@@ -96,3 +96,76 @@ var CourseView = (function (CourseView, undefined) {
 	return CourseView;
 
 })(CourseView || {});
+
+// change the moment stuff to show no more precision than per day
+(function() {
+
+	// this is kind of a hack because we add the pre/suffixes in this method,
+	// which we're not supposed to do, but as far as I know this is the only way
+	// to force moment not to add the 'in %s' or '%s ago' prefixes/suffixes for
+	// 'today', 'yesterday', and 'tomorrow'
+	moment.locale('en', {
+		relativeTime: function (number, withoutSuffix, key, isFuture) {
+			// kind of a subset of C printf functionality; replaces %s with a
+			// specified string
+			function fmt(str, num) {
+				return str.replace('%s', num);
+			}
+			
+			// takes a formatting string and puts in the number and prefix/suffix
+			function rel(str) {
+				return isFuture ?
+						fmt(fmt('in %s', str), number) :
+						fmt(fmt('%s ago', str), number); }
+
+			if (withoutSuffix) {
+				switch (key) {
+					case 's':
+					case 'm':
+					case 'mm':
+					case 'h':
+					case 'hh':
+						return 'today';
+					case 'd':
+						if (isFuture) return 'tomorrow'; else return 'yesterday';
+					case 'dd':
+						return rel('%s days');
+					case 'M':
+						return rel('a month');
+					case 'MM':
+						return rel('%s months');
+					case 'y':
+						return rel('a year');
+					case 'yy':
+						return rel('%s years');
+				}
+			} else {
+				// default to normal behavior
+				switch (key) {
+					case 's':
+						return 'a few seconds';
+					case 'm':
+						return 'a minute';
+					case 'mm':
+						return fmt('%s minutes', number);
+					case 'h':
+						return 'an hour';
+					case 'hh':
+						return fmt('%s hours', number);
+					case 'd':
+						return 'a day';
+					case 'dd':
+						return fmt('%s days', number);
+					case 'M':
+						return 'a month';
+					case 'MM':
+						return fmt('%s months', number);
+					case 'y':
+						return 'a year';
+					case 'yy':
+						return fmt('%s years', number);
+				}
+			}
+		}
+	});
+})();

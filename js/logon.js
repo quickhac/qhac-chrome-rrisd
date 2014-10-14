@@ -43,8 +43,12 @@ $(function() {
 						$('#LogOnDetails_Password').val(credentials.password);
 						$('form').submit();
 					})
-				)
-			})
+				);
+
+				// log on now if requested
+				if (window.location.hash.indexOf('q_login_now') !== -1)
+					$('.q-logon').click();
+			});
 
 			// add link to options page
 			$('.sg-logon-button').next().append(
@@ -54,7 +58,6 @@ $(function() {
 			)
 		}
 	})
-	
 
 	// hook onto login button to save information
 	$('form').submit(function (e) {

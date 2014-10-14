@@ -51,10 +51,18 @@ var Options = (function (Options, undefined) {
 			               notifOptsChanged: true});
 		},
 		handleSaveStudentOpts: function (event) {
-			// ...
+			if (this.state.studentOptsChanged) {
+				this.setState({studentOptsChanged: false});
+				this.props.saveStudentOpts({student: this.state.student})
+			}
 		},
 		handleSaveNotifOpts: function (event) {
-			// ...
+			if (this.state.notifOptsChanged) {
+				this.setState({notifOptsChanged: false});
+				this.props.saveNotifOpts({
+					notifications: this.state.notifications,
+					notificationInterval: this.state.notificationInterval});
+			}
 		},
 		render: function () {
 			var students = this.props.students;
