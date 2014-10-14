@@ -154,12 +154,18 @@ var saveAssignmentData = (function () {
 		if (hasPicker) {
 			chrome.extension.sendMessage({type: 'storeGet', method: 'getStudents'}, function (students) {
 				var studentId = students.filter(function (s) { return s.name === selectedStudent; })[0].studentId;
-				chrome.extension.sendMessage({type: 'storeSet', method: 'setAssignments',
-					data: [assignments, markingPeriod, studentId]});
+				chrome.extension.sendMessage({
+					type: 'saveAssignments',
+					assignments: assignments,
+					markingPeriod: markingPeriod,
+					studentId: studentId });
 			});
 		} else {
-			chrome.extension.sendMessage({type: 'storeSet', method: 'setAssignments',
-				data: [assignments, markingPeriod, 'default']});
+			chrome.extension.sendMessage({
+				type: 'storeSet',
+				assignments: assignments,
+				markingPeriod: markingPeriod,
+				studentId: 'default' });
 		}
 
 		window.readyToSaveAssignmentData = function () {}

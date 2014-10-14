@@ -31,7 +31,7 @@ var Crypt = (function (Crypt, undefined) {
 // APIs defined in ../background.js. (See ../logon.js or ../header.js for
 // examples of message passing.) This is because the localStorage on those pages
 // with injected scripts will only be able to access the localStorage of the
-// site instead of the extension. Extenstion pages such as ../html/options.html
+// site instead of the extension. Extension pages such as ../html/options.html
 // and ../html/background.html are able to import Store and access the storage
 // directly.
 var Store = (function (Store, undefined) {
@@ -106,11 +106,13 @@ var Store = (function (Store, undefined) {
 	}
 
 	Store.getMarkingPeriod = function (studentId) {
-		return localStorage.getItem('markingPeriod-' + studentId);
+		var mp = localStorage.getItem('markingPeriod-' + studentId);
+		if (mp == null) return null;
+		else return +mp;
 	}
 
 	Store.getLastUpdated = function (studentId) {
-		return localStorage.getItem('lastUpdated-' + studentId);
+		return +localStorage.getItem('lastUpdated-' + studentId);
 	}
 
 	Store.setState = function (state) {

@@ -181,6 +181,9 @@ var Parser = (function(Parser, undefined) {
 	 * doc {HTMLElement or HTMLDocument}
 	 */
 	Parser.parse = function (doc) {
+		// hack; hide hidden asterisks so they don't show up in innerText of assignment names
+		$('.sg-asp-table-data-row label[style$="display:none"]', doc).text('');
+
 		return [].map.call($('.AssignmentClass', doc), function(elem, idx) {
 			var $course = $(elem),
 				course_obj = {};

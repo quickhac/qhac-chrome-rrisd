@@ -11,7 +11,8 @@
 		"https://my.austinisd.org/",
 		"https://my-teams.austinisd.org/",
 		"notifications",
-		"background"
+		"background",
+		"alarms"
 	],
 
 	"icons": {

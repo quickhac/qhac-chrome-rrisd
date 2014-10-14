@@ -4,9 +4,6 @@
 
 $(function () {
 	try {
-		// hack; hide hidden asterisks so they don't show up in innerText of assignment names
-		$('.sg-asp-table-data-row label[style$="display:none"]').text('');
-
 		// parse the data on the page
 		var parsed_data = Parser.parse(document.body),
 			mp_info = Parser.getMarkingPeriodInfo(document.body),

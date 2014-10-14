@@ -46,9 +46,28 @@ var Retrieve = (function (Retrieve, undefined) {
 			if (lastSuccessfulRequestTime === 0 && (username == null || password == null))
 				reject(new Error('not logged in'));
 			else if (+new Date - lastSuccessfulRequestTime > Retrieve.SESSION_TIMEOUT)
-				Retrieve.login(username, password).done(resolve).fail(reject);
+				Retrieve.login(username, password).then(resolve, reject);
 			else
 				resolve();
+		});
+	}
+
+	/**
+	 * Ensures the student with the given name is selected before calling resolve.
+	 * The student passed in should have both `name` and `studentId` parameters,
+	 * since `name` is used to compare against the student that is currently
+	 * selected and `studentId` is used to select the student using the picker.
+	 * returns: ES6 Promise
+	 */
+	Retrieve.ensureStudentSelected = function (toSelect) {
+		return new Promise(function (resolve, reject) {
+			ensureLoggedIn().then(function () {
+				if (student === toSelect.name) {
+					resolve();
+				} else {
+					Retrieve.selectStudent(toSelect).then(resolve, reject);
+				}
+			}, reject);
 		});
 	}
 
