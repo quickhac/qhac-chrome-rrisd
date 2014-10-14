@@ -145,7 +145,7 @@ var Popup = (function (Popup, undefined) {
 						assignments = student.assignments || [];
 						return (
 							React.DOM.div({className: "student-section"}, 
-								React.DOM.h2(null, student.name), 
+								React.DOM.h2(null, student.name, " (MP", student.markingPeriod, ")"), 
 								assignments.map((function (course) {
 									return (
 										React.DOM.div({className: "course-select" + (currMainView === course ? " selected" : ""), 

@@ -145,7 +145,7 @@ var Popup = (function (Popup, undefined) {
 						assignments = student.assignments || [];
 						return (
 							<div className="student-section">
-								<h2>{student.name}</h2>
+								<h2>{student.name} (MP{student.markingPeriod})</h2>
 								{assignments.map((function (course) {
 									return (
 										<div className={"course-select" + (currMainView === course ? " selected" : "")}
