@@ -29,6 +29,7 @@ $(function () {
 				Store.setOptionProp(
 					['notifications', options.notifications],
 					['notificationInterval', options.notificationInterval]);
+				chrome.extension.sendMessage({type: 'initAlarm'});
 			}
 		}), $('#settings').get(0));
 	}

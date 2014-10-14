@@ -338,6 +338,13 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 			sendResponse(true);
 			break;
 
+		// usage: { type: 'initAlarm' }
+		// Forces the background updater to reload alarm settings from Store.
+		case 'initAlarm':
+			Update.initAlarm();
+			sendResponse(true);
+			break;
+
 		// usage: { type: 'createTab', url: {string}}
 		// Opens a new tab to the specified URL. This is useful because injected
 		// scripts cannot access the chrome.tabs API.
