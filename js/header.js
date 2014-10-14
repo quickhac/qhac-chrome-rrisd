@@ -162,7 +162,7 @@ var saveAssignmentData = (function () {
 			});
 		} else {
 			chrome.extension.sendMessage({
-				type: 'storeSet',
+				type: 'saveAssignments',
 				assignments: assignments,
 				markingPeriod: markingPeriod,
 				studentId: 'default' });
