@@ -3,6 +3,9 @@
 'use strict';
 
 $(function() {
+	// set window title
+	document.title = "Home Access – Login";
+
 	// put extension credit in header
 	$('.sg-banner .sg-banner-info-container > .sg-banner-text')
 		.html('Home Access Center<br><span id="ext-cred">enhanced with QuickHAC</span>');
