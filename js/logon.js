@@ -59,6 +59,9 @@ $(function() {
 					chrome.extension.sendMessage({type: 'createTab', url: 'html/options.html'});
 				})
 			)
+
+			// we are already logged in; don't offer to save login data
+			$('#qhac-save-wrapper').hide();
 		}
 	})
 
