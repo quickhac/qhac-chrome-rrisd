@@ -12,6 +12,15 @@ var RenderUtils = (function (RenderUtils, undefined) {
 		return [year, month, day];
 	}
 
+	function nowArray () {
+		var date = new Date,
+			year = date.getFullYear(),
+			month = date.getMonth(),
+			day = date.getDate();
+
+		return [year, month, day];
+	}
+
 	/**
 	 * Converts a date in the format of milliseconds since 1970 to a date relative
 	 * to the current date.
@@ -24,7 +33,7 @@ var RenderUtils = (function (RenderUtils, undefined) {
 		if (withSuffix) {
 			return prefix + moment(ms).fromNow() + suffix
 		} else {
-			return prefix + moment(RenderUtils.dateToYMDArray(ms)).fromNow(true) + suffix;
+			return prefix + moment(RenderUtils.dateToYMDArray(ms)).from(nowArray(), true) + suffix;
 		}
 	}
 
