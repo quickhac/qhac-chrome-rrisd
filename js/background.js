@@ -35,7 +35,7 @@ var Update = (function (Update, undefined) {
 		chrome.alarms.get(ALARM_NAME, function (alarm) {
 			// Reschedule the alarm if it is within five minutes of now
 			if (alarm == null || alarm.scheduledTime - +new Date < FIVE_MINUTES_IN_MS) {
-				Update.initAlarm(5);
+				Update.initAlarm();
 			}
 		})
 	}
