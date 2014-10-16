@@ -43,25 +43,25 @@ var Update = (function (Update, undefined) {
 	// Run the update callback when the update alarm is fired.
 	chrome.alarms.onAlarm.addListener(function (alarm) {
 		if (alarm.name === ALARM_NAME) {
-			update();
+			Update.update();
 		}
 	})
 
 	// The update callback, which loads grades from the server.
-	function update () {
+	Update.update = function (callback) {
 		var studentsInStore = Store.getStudent();
 		if (studentsInStore.studentId === 'default') {
 			// There is only one student under the account if Store.getStudent()
 			// returns `[]`; thus, we don't have to check for selecting the
 			// right student.
-			updateStudent(studentsInStore, false);
+			updateStudent(studentsInStore, false).then(callback, fail);
 		} else {
 			// The account has multiple students; we must select the right
 			// student before updating.
 			if (studentsInStore.studentId === 'all')
-				iterativelyUpdateStudents(Store.getStudents());
+				iterativelyUpdateStudents(Store.getStudents(), callback);
 			else
-				updateStudent(studentsInStore, false);
+				updateStudent(studentsInStore, false).then(callback, fail);
 		}
 	}
 
@@ -69,7 +69,7 @@ var Update = (function (Update, undefined) {
 	 * Update students one by one, waiting for the current update to finish
 	 * before starting the next one.
 	 */
-	function iterativelyUpdateStudents (students) {
+	function iterativelyUpdateStudents (students, callback) {
 		var i = 0;
 		updateNext();
 
@@ -82,8 +82,10 @@ var Update = (function (Update, undefined) {
 				i++;
 				if (i < students.length) {
 					updateNext();
+				} else {
+					typeof callback === 'function' && callback();
 				}
-			});
+			}, fail);
 		}
 	}
 
@@ -94,15 +96,19 @@ var Update = (function (Update, undefined) {
 	 * the notification text displayed to the user.
 	 */
 	function updateStudent (student, hasMultipleStudents) {
-		Retrieve.assignments().then(function (data) {
-			// Only get the information we need: courses and marking period info
-			var courses = data.courses,
-				mpInfo = data.mpInfo;
+		return new Promise(function (resolve, reject) {
+			Retrieve.assignments().then(function (data) {
+				// Only get the information we need: courses and marking period info
+				var courses = data.courses,
+					mpInfo = data.mpInfo;
 
-			var newGrades = Compare.compare(student, courses, mpInfo);
-			Notify.notifyNewGrades(student, newGrades, hasMultipleStudents);
-			Store.setAssignments(courses, mpInfo[0], student.studentId);
-		}, fail)
+				var newGrades = Compare.compare(student, courses, mpInfo);
+				Notify.notifyNewGrades(student, newGrades, hasMultipleStudents);
+				Store.setAssignments(courses, mpInfo[0], student.studentId);
+
+				resolve();
+			}, reject);
+		});
 	}
 
 	// If some part of the background update fails, print a debug message to the console.
@@ -143,7 +149,7 @@ var Notify = (function (Notify, undefined) {
 		// Show a multi-item notification if there are multiple courses.
 		else {
 			options.type = 'list';
-			options.message = 'Your grade has changed in ' + grades.length + ' courses.';
+			options.message = 'Your grade has been updated in ' + grades.length + ' courses.';
 			options.items = [];
 			grades.forEach(function (course) {
 				options.items.push({
@@ -237,7 +243,7 @@ var Compare = (function (Compare, undefined) {
 			}
 
 			function pushIfChanged () {
-				if (course.updated > oldCourse.updated) {
+				if (course.grade !== oldCourse.grade || course.updated > oldCourse.updated) {
 					changes.push(course);
 				}
 			}
@@ -342,6 +348,18 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 		// Forces the background updater to reload alarm settings from Store.
 		case 'initAlarm':
 			Update.initAlarm();
+			sendResponse(true);
+			break;
+
+		// usage: { type: 'updateNow' }
+		// Forces the background updater to reload now, then sends an 'updateComplete'
+		// message.
+		case 'updateNow':
+			Update.delayUpdate(); // avoid concurrency problems
+			Update.update(function () {
+				chrome.extension.sendMessage({type: 'updateComplete'});
+				Update.initAlarm();
+			});
 			sendResponse(true);
 			break;
 

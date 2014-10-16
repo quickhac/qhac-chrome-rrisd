@@ -34,19 +34,43 @@ onPageLoad(function () {
 	if (Store.getState() != '3')
 		return;
 
-	// Load the students from Store
-	var storedStudent = Store.getStudent(), students;
-	if (storedStudent.studentId === 'all') {
-		students = Store.getStudents().map(extendStudent);
-	} else {
-		students = [extendStudent(storedStudent)];
+	// Refresh page when the refresh link is clicked.
+	document.getElementById('link-refresh').addEventListener('click', function () {
+		// The 'updateNow' message will force the background page to update.
+		// The background page will send an 'updateComplete' message when the
+		// update has been stored in localStorage.
+		chrome.extension.sendMessage({type: 'updateNow'});
+		document.getElementById('loading').classList.add('visible');
+	}, false);
+
+	// Loads information from Store and renders it.
+	function render() {
+		// Load the students from Store
+		var storedStudent = Store.getStudent(), students;
+		if (storedStudent.studentId === 'all') {
+			students = Store.getStudents().map(extendStudent);
+		} else {
+			students = [extendStudent(storedStudent)];
+		}
+
+		// Render the sidebar and the recents view
+		React.renderComponent(Popup.Sidebar({
+			students: students
+		}), document.getElementById('sidebar'));
+		React.renderComponent(Popup.Recents({
+			students: students
+		}), document.getElementById('main'));
 	}
 
-	// Render the sidebar and the recents view
-	React.renderComponent(Popup.Sidebar({
-		students: students
-	}), document.getElementById('sidebar'));
-	React.renderComponent(Popup.Recents({
-		students: students
-	}), document.getElementById('main'));
+	render();
+
+	// Listens for the 'updateComplete' message and then reloads the information
+	// from Store.
+	chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
+		if (request.type === 'updateComplete') {
+			render();
+			document.getElementById('loading').classList.remove('visible');
+			sendResponse(true);
+		}
+	});
 });

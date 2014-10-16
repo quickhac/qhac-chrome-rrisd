@@ -46,6 +46,25 @@ a {
 	font-weight: 600;
 }
 
+#loading {
+	display: none;
+	height: 12px;
+	width: 12px;
+	margin-top: 16px;
+	margin-right: 8px;
+}
+
+/* animated loading indicator */
+#loading.visible {
+	display: block;
+	-webkit-animation: rotate 800ms linear 0 infinite normal;
+}
+
+@-webkit-keyframes rotate {
+	from { -webkit-transform: rotate(0deg); }
+	to { -webkit-transform: rotate(360deg); }
+}
+
 #header a {
 	padding: 12px 8px 0 8px;
 	text-decoration: none;
@@ -148,6 +167,10 @@ a {
 
 .course-view > .category {
 	padding: 16px;
+}
+
+.course-view table .due {
+	width: 2.5%;
 }
 
 .category th {
