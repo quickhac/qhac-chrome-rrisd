@@ -2,6 +2,11 @@
 
 'use strict';
 
+// remove 'q_login_now' hash if any
+if (window.location.hash.indexOf('q_login_now') !== -1) {
+	window.location.hash = '';
+}
+
 $(function() {
 	// add font awesome lock icon to logoff button
 	$('.sg-menu-element-logoff > a').addClass('fa icon-lock');
