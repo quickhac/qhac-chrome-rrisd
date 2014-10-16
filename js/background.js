@@ -75,8 +75,6 @@ var Update = (function (Update, undefined) {
 
 		function updateNext () {
 			Retrieve.ensureStudentSelected(students[i]).then(function () {
-				return Retrieve.assignments();
-			}, fail).then(function () {
 				return updateStudent(students[i], true);
 			}, fail).then(function () {
 				i++;
