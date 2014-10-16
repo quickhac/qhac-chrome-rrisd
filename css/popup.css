@@ -189,3 +189,7 @@ a {
 .assignment {
 	font-weight: 400;
 }
+
+.notice a, .notice a:visited {
+	color: #336e7b;
+}

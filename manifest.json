@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "QuickHAC",
 	"description": "Quickly and efficiently check your grades.",
-	"version": "3.2.0",
+	"version": "3.2.1",
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 	
 	"permissions": [
