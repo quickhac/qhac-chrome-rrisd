@@ -108,11 +108,11 @@ var Store = (function (Store, undefined) {
 	Store.getMarkingPeriod = function (studentId) {
 		var mp = localStorage.getItem('markingPeriod-' + studentId);
 		if (mp == null) return null;
-		else return +mp;
+		else return +mp; // coerce to number
 	}
 
 	Store.getLastUpdated = function (studentId) {
-		return +localStorage.getItem('lastUpdated-' + studentId);
+		return +localStorage.getItem('lastUpdated-' + studentId); // coerce to number
 	}
 
 	Store.setState = function (state) {
@@ -127,6 +127,8 @@ var Store = (function (Store, undefined) {
 		localStorage.setItem('options', JSON.stringify(options));
 	}
 
+	// Takes an arbitrary amount of arguments in the format [key, value] as
+	// options to set. Example: Store.setOptionProp(['opt1', 'val1'], ['opt2', 'val2'])
 	Store.setOptionProp = function () {
 		var opts = Store.getOptions();
 		[].slice.call(arguments).forEach(function (kv) {

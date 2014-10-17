@@ -52,8 +52,8 @@ var Update = (function (Update, undefined) {
 		var studentsInStore = Store.getStudent();
 		if (studentsInStore.studentId === 'default') {
 			// There is only one student under the account if Store.getStudent()
-			// returns `[]`; thus, we don't have to check for selecting the
-			// right student.
+			// returns a student with a studentId of 'default'; thus, we don't
+			// have to check for selecting the right student.
 			updateStudent(studentsInStore, false).then(callback, fail);
 		} else {
 			// The account has multiple students; we must select the right
@@ -126,6 +126,10 @@ var Update = (function (Update, undefined) {
 var Notify = (function (Notify, undefined) {
 
 	Notify.notifyNewGrades = function (student, grades, hasMultipleStudents) {
+		if (grades == undefined || grades.length === 0) {
+			return;
+		}
+
 		var options = {iconUrl: '../assets/icon128.png'};
 
 		if (hasMultipleStudents)
@@ -133,12 +137,7 @@ var Notify = (function (Notify, undefined) {
 		else
 			options.title = "New grades";
 
-		// Don't bother showing notifications if there aren't any changes.
-		if (grades == undefined || grades.length === 0) {
-			return;
-		}
-
-		// Show detailed information if there is only one course.
+		// Show longer message if there is only one course.
 		else if (grades.length === 1) {
 			options.type = 'basic';
 			options.message = 'Your grade in ' + grades[0].name + ' is now ' + grades[0].grade;
@@ -220,6 +219,8 @@ var Compare = (function (Compare, undefined) {
 			else {
 				unmatchedCourses.push(oldCourse);
 
+				// We just pushed oldCourse, which we just compared to, to
+				// unmatchedCourses, so we can start at the index before it.
 				for (j = unmatchedCourses.length - 2; j >= 0; j++) {
 					oldCourse = unmatchedCourses[j];
 					if (course.name === oldCourse.name) {
@@ -228,6 +229,8 @@ var Compare = (function (Compare, undefined) {
 					}
 				}
 
+				// oldCourses[i] is the oldCourse we've already compared to,
+				// so start at the index after it.
 				for (j = i + 1; j < oldCourses.length; j++) {
 					oldCourse = unmatchedCourses[j];
 					if (course.name === oldCourse.name) {
