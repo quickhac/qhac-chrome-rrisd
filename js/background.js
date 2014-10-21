@@ -138,7 +138,7 @@ var Notify = (function (Notify, undefined) {
 			options.title = "New grades";
 
 		// Show longer message if there is only one course.
-		else if (grades.length === 1) {
+		if (grades.length === 1) {
 			options.type = 'basic';
 			options.message = 'Your grade in ' + grades[0].name + ' is now ' + grades[0].grade;
 		}
