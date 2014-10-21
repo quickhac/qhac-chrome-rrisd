@@ -1,0 +1,195 @@
+html, body {
+	display: flex;
+	flex-direction: column;
+	justify-content: justify;
+	height: 360px;
+	width: 600px;
+	margin: 0;
+
+	font-family: 'Open Sans';
+	-webkit-user-select: none;
+}
+
+a {
+	outline: none; /* gets rid of the annoying blue glow around the focused element */
+}
+
+/* header */
+
+#header {
+	display: flex;
+	width: 100%;
+	height: 42px;
+
+	background: #336e7b;
+}
+
+#logo {
+	width: 36px;
+	height: 36px;
+	margin: 4px 0 2px 0;
+}
+
+#appname, #header a {
+	display: block;
+	color: #fff;
+	font-weight: 300;
+}
+
+#appname {
+	flex: 1 1;
+	margin: 9px 4px 0 0;
+	font-size: 18px;
+}
+
+#appname b {
+	font-weight: 600;
+}
+
+#loading {
+	display: none;
+	height: 12px;
+	width: 12px;
+	margin-top: 16px;
+	margin-right: 8px;
+}
+
+/* animated loading indicator */
+#loading.visible {
+	display: block;
+	-webkit-animation: rotate 800ms linear 0 infinite normal;
+}
+
+@-webkit-keyframes rotate {
+	from { -webkit-transform: rotate(0deg); }
+	to { -webkit-transform: rotate(360deg); }
+}
+
+#header a {
+	padding: 12px 8px 0 8px;
+	text-decoration: none;
+	font-size: 14px;
+	cursor: pointer;
+	transition: background 100ms;
+}
+
+#header a:hover {
+	background: rgba(255,255,255,0.125);
+}
+
+#link-open-full {
+	margin-right: 8px;
+}
+
+/* content */
+
+#content {
+	flex: 1 1;
+	display: flex;
+	justify-content: justify;
+	width: 100%;
+}
+
+/* sidebar */
+
+#sidebar, #main {
+	overflow: scroll;
+}
+
+#sidebar {
+	width: 200px;
+	padding: 8px 0;
+	background: #444;
+	color: #fff;
+	font-weight: 300;
+	user-select: none;
+}
+
+#sidebar h2 {
+	margin: 8px 0 4px 0;
+	color: #aaa;
+
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 1px;
+}
+
+#sidebar .recent-select, #sidebar .course-select {
+	box-sizing: border-box;
+	display: flex;
+	justify-content: justify;
+	width: 100%;
+	padding: 4px 8px;
+
+	font-size: 13px;
+
+	cursor: pointer;
+
+	transition: background 100ms;
+}
+
+#sidebar .recent-select:hover, #sidebar .course-select:hover, #sidebar .selected {
+	background: rgba(255,255,255,0.125);
+}
+
+#sidebar .course-select .name {
+	flex: 1 1;
+}
+
+#sidebar .course-select .grade {
+	font-weight: 600;
+}
+
+/* main */
+#main {
+	width: 400px;
+	padding: 0 24px;
+	background: #f8f8f8;
+}
+
+#main .notice {
+	font-size: 14px;
+}
+
+.recents .vert h1 {
+	margin-bottom: -14px;
+}
+
+.recents .updated {
+	color: #aaa;
+}
+
+.course-view > .header {
+	margin-top: 24px;
+}
+
+.course-view > .category {
+	padding: 16px;
+}
+
+.course-view table .due {
+	width: 2.5%;
+}
+
+.category th {
+	font-size: 10px;
+}
+
+.category .weight {
+	margin-top: 2px;
+	font-size: 16px;
+}
+
+.category .average {
+	font-size: 1.5em;
+}
+
+.assignment {
+	font-weight: 400;
+}
+
+.notice a, .notice a:visited {
+	color: #336e7b;
+}

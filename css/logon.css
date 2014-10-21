@@ -139,7 +139,7 @@ body {
 	margin: 2px 4px;
 	padding: 2px 0;
 	border: none;
-	border-radius: 2px;
+	border-radius: 0;
 
 	outline: 1px solid rgba(255,255,255,0.2);
 	background: rgba(255,255,255,0.2);
@@ -147,6 +147,27 @@ body {
 
 	font-family: 'Open Sans';
 	font-size: 16px;
+
+	cursor: pointer;
+}
+
+.q-logon {
+	height: 30px;
+	margin-top: 12px !important;
+}
+
+/* save button */
+#qhac-save-wrapper {
+	margin: 6px 0 -2px 0;
+}
+
+#qhac-save {
+	margin-right: 6px;
+}
+
+label[for=qhac-save] {
+	font-weight: 400;
+	font-size: 15px;
 }
 
 /* disclaimer */

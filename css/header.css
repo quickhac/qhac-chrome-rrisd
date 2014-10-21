@@ -300,7 +300,70 @@ label.sg-student-picker-row:hover {
 	font-weight: 400;
 }
 
-/* dialog */
+/* student picker dialog */
+.q-picker.unrendered {
+	opacity: 0;
+	top: 149px;
+}
+
+.q-picker {
+	z-index: 50;
+	position: fixed;
+	top: 159px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	opacity: 1;
+
+	background: rgba(0,0,0,0.25);
+	font-family: 'Open Sans';
+
+	-webkit-transition: opacity 0.2s, top 0.2s ease-out;
+}
+
+.q-student-picker {
+	position: absolute;
+	box-sizing: border-box;
+	left: 50%;
+	margin-left: -162px;
+	width: 324px;
+	padding: 20px 16px;
+
+	background: #fff;
+	box-shadow: 0px 4px 4px rgba(0,0,0,0.125),
+	            -4px 4px 4px rgba(0,0,0,0.0625),
+	            4px 4px 4px rgba(0,0,0,0.0625);
+}
+
+.q-student-picker h2 {
+	margin: 0;
+	font-size: 24px;
+	font-weight: 300;
+}
+
+.q-picker-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.q-picker-list input {
+	border: none;
+
+	background: none;
+	color: rgb(38,82,92);
+
+	font-family: 'Open Sans';
+	font-size: 14px;
+	font-weight: 600;
+
+	cursor: pointer;
+}
+
+.q-picker-list input:hover {
+	text-decoration: underline;
+}
 
 /* prevent giant dialog when viewing privacy policy and terms of use */
 .ui-dialog.sg-form-dialog {
@@ -324,6 +387,13 @@ label.sg-student-picker-row:hover {
 }
 
 .sg-main-footer > .sg-hac-copyright {
+	position: relative;
+	top: -3px;
 	width: 32em;
+	color: #888;
 	text-align: center;
+}
+
+.sg-main-footer > .sg-hac-footer-links {
+	top: 3px;
 }
