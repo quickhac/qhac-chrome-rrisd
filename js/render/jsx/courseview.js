@@ -25,7 +25,7 @@ var CourseView = (function (CourseView, undefined) {
 					<td className="name" ref="name">{asg.name}</td>
 					<td className="due" ref="due">{RenderUtils.relativeDate(asg.date_due)}</td>
 					<td className="grade" ref="grade">
-						<span className="score">{RenderUtils.showMaybeNum(asg.score)}</span>
+						<span className="score">{RenderUtils.showMaybeNumOrString(asg.score)}</span>
 						<span className="aside">{showScoreAside(asg)}</span>
 					</td>
 				</tr>
@@ -54,7 +54,7 @@ var CourseView = (function (CourseView, undefined) {
 						</thead>
 						<tbody>
 							{cat.assignments.map(function (asg) {
-								return <AssignmentRow assignment={asg} />
+								return <AssignmentRow key={asg.name} assignment={asg} />
 							})}
 						</tbody>
 					</table>
@@ -86,7 +86,7 @@ var CourseView = (function (CourseView, undefined) {
 						<div className="grade">{RenderUtils.showMaybeNum(course.grade)}</div>
 					</div>
 					{course.categories.map(function (cat) {
-						return <CategoryCard category={cat} />
+						return <CategoryCard key={cat.name} category={cat} />
 					})}
 				</div>
 			)

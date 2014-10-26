@@ -51,6 +51,17 @@ var RenderUtils = (function (RenderUtils, undefined) {
 		return prefix + num.toString() + suffix;
 	}
 
+	/**
+	 * Converts a number or a string to a string.
+	 */
+	RenderUtils.showMaybeNumOrString = function (str, prefix, suffix) {
+		prefix = prefix || '';
+		suffix = suffix || '';
+
+		if (isNaN(str)) return prefix + str + suffix;
+		else return RenderUtils.showMaybeNum(str, prefix, suffix);
+	}
+
 	RenderUtils.mapObjToArr = function (obj, callback) {
 		var arr = [];
 		for (var k in obj)

@@ -104,13 +104,13 @@ div, span, th, td, label, h1, h2, h3 {
 	padding-bottom: 6px;
 	cursor: pointer;
 
-	background: rgba(255,255,255,0);
+	background: rgba(0,0,0,0);
 
 	transition: background 100ms;
 }
 
 .mp-option input:checked + label, .mp-option label:hover {
-	background: rgba(255,255,255,0.25);
+	background: rgba(0,0,0,0.375);
 }
 
 /* logo */

@@ -85,7 +85,7 @@ var Popup = (function (Popup, undefined) {
 													React.DOM.td({className: "name"}, asg.assignment.name), 
 													React.DOM.td({className: "due"}, RenderUtils.relativeDate(asg.assignment.date_due)), 
 													React.DOM.td({className: "grade"}, 
-														React.DOM.span({className: "score"}, RenderUtils.showMaybeNum(asg.assignment.score)), 
+														React.DOM.span({className: "score"}, RenderUtils.showMaybeNumOrString(asg.assignment.score)), 
 														React.DOM.span({className: "aside"}, CourseView.showScoreAside(asg))
 													)
 												)

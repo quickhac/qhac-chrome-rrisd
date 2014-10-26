@@ -25,7 +25,7 @@ var CourseView = (function (CourseView, undefined) {
 					React.DOM.td({className: "name", ref: "name"}, asg.name), 
 					React.DOM.td({className: "due", ref: "due"}, RenderUtils.relativeDate(asg.date_due)), 
 					React.DOM.td({className: "grade", ref: "grade"}, 
-						React.DOM.span({className: "score"}, RenderUtils.showMaybeNum(asg.score)), 
+						React.DOM.span({className: "score"}, RenderUtils.showMaybeNumOrString(asg.score)), 
 						React.DOM.span({className: "aside"}, showScoreAside(asg))
 					)
 				)
@@ -54,7 +54,7 @@ var CourseView = (function (CourseView, undefined) {
 						), 
 						React.DOM.tbody(null, 
 							cat.assignments.map(function (asg) {
-								return AssignmentRow({assignment: asg})
+								return AssignmentRow({key: asg.name, assignment: asg})
 							})
 						)
 					)
@@ -86,7 +86,7 @@ var CourseView = (function (CourseView, undefined) {
 						React.DOM.div({className: "grade"}, RenderUtils.showMaybeNum(course.grade))
 					), 
 					course.categories.map(function (cat) {
-						return CategoryCard({category: cat})
+						return CategoryCard({key: cat.name, category: cat})
 					})
 				)
 			)

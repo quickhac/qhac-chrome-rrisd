@@ -18,12 +18,7 @@ $(function () {
 				current_mp: mp_info[0],
 				max_mp: mp_info[1],
 				asp_state: asp_state
-			}), document.body, function () {
-				// FIXME: make CourseView a React child of Overview
-				React.renderComponent(CourseView.CourseView(), $('.course-view-wrapper')[0]);
-				// FIXME: render the logo inside React
-				$('.courselist-sidebar').append('<img id="logo" src="' + chrome.extension.getURL('assets/logowhite.svg') + '">');
-			});
+			}), document.body);
 
 		// Remove all styles, since we've rewritten the whole page anyway.
 		// We put this line after rendering the React components over the body

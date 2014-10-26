@@ -4,13 +4,20 @@
 var ParseUtils = (function(ParseUtils, undefined) {
 
 	ParseUtils.parseMaybeFloat = function (str) {
-		if (str === undefined || str === null || str === '' || str === ' ')
+		if (str === undefined || str === null || str.trim() === '')
 			return null;
 		return parseFloat(str);
 	}
 
+	ParseUtils.parseMaybeFloatOrString = function (str) {
+		if (str === undefined || str === null || str.trim() === '')
+			return null;
+		else if (isNaN(str)) return str;
+		else return parseFloat(str);
+	}
+
 	ParseUtils.parseMaybePercent = function (str) {
-		if (str === undefined || str === null || str === '' || str === ' ')
+		if (str === undefined || str === null || str.trim() === '')
 			return null;
 
 		var matches = str.match(/([\d\.]+)/);
@@ -116,7 +123,7 @@ var Parser = (function(Parser, undefined) {
 		['date_assigned', ParseUtils.parseDate],
 		['name', ParseUtils.strTrim],
 		['category', null],
-		['score', ParseUtils.parseMaybeFloat],
+		['score', ParseUtils.parseMaybeFloatOrString],
 		['total_points', ParseUtils.parseMaybeFloat],
 		['weight', ParseUtils.parseMaybeFloat],
 		['weighted_score', ParseUtils.parseMaybeFloat],

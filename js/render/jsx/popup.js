@@ -85,7 +85,7 @@ var Popup = (function (Popup, undefined) {
 													<td className="name">{asg.assignment.name}</td>
 													<td className="due">{RenderUtils.relativeDate(asg.assignment.date_due)}</td>
 													<td className="grade">
-														<span className="score">{RenderUtils.showMaybeNum(asg.assignment.score)}</span>
+														<span className="score">{RenderUtils.showMaybeNumOrString(asg.assignment.score)}</span>
 														<span className="aside">{CourseView.showScoreAside(asg)}</span>
 													</td>
 												</tr>
